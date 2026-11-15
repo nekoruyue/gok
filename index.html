@@ -5,131 +5,186 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>戈克世界 · GOK WORLD</title>
-<meta name="description" content="2034 年伽马射线暴之后，世界归零；千年后人类捡到「戈克」与「魔法」，然后为了谁说了算打了很久的仗。">
+<meta name="description" content="2034 年伽马射线暴之后，世界归零；千年后人类捡到「戈克」与「魔法」，然后为了谁说了算打了很久的仗。原创奇幻 IP：七款游戏、一部小说、四十八位角色、八个阵营。">
 <meta property="og:title" content="戈克世界">
 <meta property="og:description" content="这个世界打的不是力量，是解释权。">
 <meta property="og:image" content="assets/worldmap_ai.webp">
 <style>
   :root{
-    --bg:#080b10;
-    --bg2:#0d1218;
-    --panel:#111820;
-    --line:rgba(217,185,106,.22);
-    --gold:#d9b96a;
-    --gold2:#f0d9a0;
-    --text:#e8e2d4;
-    --muted:#8b9aa6;
-    --dim:#5c6a76;
+    --bg:#080b10; --bg2:#0d1218; --bg3:#0a0f15; --bg4:#101821;
+    --line:rgba(217,185,106,.22); --line2:rgba(217,185,106,.12);
+    --gold:#d9b96a; --gold2:#f0d9a0; --gold3:#b79a52;
+    --text:#e8e2d4; --muted:#8b9aa6; --dim:#5c6a76;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--text);
-    font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;
-    line-height:1.9;overflow-x:hidden;
-  }
+  body{background:var(--bg);color:var(--text);font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;line-height:1.9;overflow-x:hidden}
   img{display:block;max-width:100%}
   a{color:var(--gold);text-decoration:none}
   .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
 
   /* 顶栏 */
-  .topbar{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    background:rgba(8,11,16,.86);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .topbar .inner{
-    max-width:1180px;margin:0 auto;padding:14px 32px;
-    display:flex;align-items:center;justify-content:space-between;gap:20px;
-  }
-  .brand{font-size:15px;letter-spacing:6px;color:var(--gold2)}
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(8,11,16,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line2)}
+  .topbar .inner{max-width:1180px;margin:0 auto;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{font-size:15px;letter-spacing:6px;color:var(--gold2);flex:none}
   .brand small{display:block;font-size:9px;letter-spacing:4px;color:var(--dim);margin-top:2px}
-  .nav{display:flex;gap:26px;font-size:13px;letter-spacing:.12em}
-  .nav a{color:var(--muted);transition:color .2s}
+  .nav{display:flex;gap:22px;font-size:12.5px;letter-spacing:.08em;flex-wrap:wrap}
+  .nav a{color:var(--muted);transition:color .2s;white-space:nowrap}
   .nav a:hover{color:var(--gold2)}
 
   /* 封面 */
-  .hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
-  .hero-bg{
-    position:absolute;inset:0;
-    background:url(assets/worldmap_ai.webp) center/cover no-repeat;
-    opacity:.34;filter:saturate(.55) contrast(1.05);
-  }
-  .hero-bg::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(8,11,16,.55) 0%,rgba(8,11,16,.35) 40%,var(--bg) 96%);
-  }
-  .hero-inner{position:relative;z-index:2;padding-top:120px;padding-bottom:80px}
-  .kicker{
-    font-size:12px;letter-spacing:5px;color:var(--gold);
-    display:flex;align-items:center;gap:14px;margin-bottom:22px;
-  }
+  .hero{position:relative;min-height:94vh;display:flex;align-items:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url(assets/worldmap_ai.webp) center/cover no-repeat;opacity:.34;filter:saturate(.55) contrast(1.05);transform:scale(1.03)}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,16,.55) 0%,rgba(8,11,16,.3) 40%,var(--bg) 97%)}
+  .hero-inner{position:relative;z-index:2;padding-top:120px;padding-bottom:70px}
+  .kicker{font-size:12px;letter-spacing:5px;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:22px}
   .kicker::before{content:"";width:44px;height:1px;background:var(--gold);opacity:.6}
-  h1.title{
-    font-size:clamp(46px,9vw,104px);letter-spacing:.12em;font-weight:600;
-    color:var(--gold2);line-height:1.1;margin-bottom:8px;
-    text-shadow:0 6px 40px rgba(0,0,0,.8);
-  }
-  .title-en{font-size:clamp(11px,1.6vw,14px);letter-spacing:10px;color:var(--dim);margin-bottom:34px}
-  .lede{
-    max-width:660px;font-size:clamp(15px,1.7vw,18px);color:#cfc7b6;
-    line-height:2.1;margin-bottom:14px;
-  }
+  h1.title{font-size:clamp(46px,9vw,104px);letter-spacing:.12em;font-weight:600;color:var(--gold2);line-height:1.05;margin-bottom:8px;text-shadow:0 6px 44px rgba(0,0,0,.85)}
+  .title-en{font-size:clamp(11px,1.6vw,14px);letter-spacing:10px;color:var(--dim);margin-bottom:32px}
+  .lede{max-width:660px;font-size:clamp(15px,1.7vw,18px);color:#cfc7b6;line-height:2.1;margin-bottom:14px}
   .lede em{font-style:normal;color:var(--gold)}
-  .punch{
-    font-size:clamp(16px,1.9vw,21px);color:var(--gold2);letter-spacing:.06em;
-    margin:26px 0 40px;padding-left:20px;border-left:2px solid var(--gold);
-  }
-  .btns{display:flex;gap:16px;flex-wrap:wrap}
-  .btn{
-    display:inline-block;padding:13px 34px;font-size:14px;letter-spacing:.2em;
-    border:1px solid var(--line);color:var(--gold);transition:all .25s;
-  }
+  .punch{font-size:clamp(16px,1.9vw,21px);color:var(--gold2);letter-spacing:.06em;margin:24px 0 38px;padding-left:20px;border-left:2px solid var(--gold)}
+  .btns{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 32px;font-size:14px;letter-spacing:.18em;border:1px solid var(--line);color:var(--gold);transition:all .25s}
   .btn:hover{background:rgba(217,185,106,.1);border-color:var(--gold);color:var(--gold2)}
   .btn.solid{background:var(--gold);color:#0a0d12;border-color:var(--gold);font-weight:600}
-  .btn.solid:hover{background:var(--gold2);border-color:var(--gold2);color:#0a0d12}
+  .btn.solid:hover{background:var(--gold2);border-color:var(--gold2)}
+  .hero-meta{margin-top:48px;display:flex;gap:42px;flex-wrap:wrap;font-size:12px;letter-spacing:.1em;color:var(--dim)}
+  .hero-meta b{display:block;font-size:22px;letter-spacing:.04em;color:var(--gold);font-weight:400;margin-bottom:2px}
+  .scrolldown{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;font-size:10px;letter-spacing:4px;color:var(--dim);animation:fl 2.4s ease-in-out infinite}
+  @keyframes fl{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,7px);opacity:1}}
 
-  /* 通用段 */
-  section{padding:88px 0}
-  .sec-head{margin-bottom:52px}
+  /* 通用 */
+  section{padding:86px 0}
+  .sec-head{margin-bottom:48px}
   .sec-en{font-size:11px;letter-spacing:5px;color:var(--dim);margin-bottom:12px}
   h2{font-size:clamp(26px,3.6vw,40px);letter-spacing:.1em;color:var(--gold2);font-weight:600;margin-bottom:14px}
-  .sec-sub{color:var(--muted);font-size:14px;letter-spacing:.08em}
+  .sec-sub{color:var(--muted);font-size:14px;letter-spacing:.08em;line-height:1.95}
+  .alt{background:var(--bg2)}
 
-  /* 三个概念 */
-  .concepts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}
-  .concept{background:var(--bg2);padding:38px 32px}
+  /* 三个词 */
+  .concepts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line2)}
+  .concept{background:var(--bg2);padding:38px 32px;transition:background .3s}
+  .concept:hover{background:var(--bg4)}
   .concept h3{font-size:19px;letter-spacing:.24em;color:var(--gold);margin-bottom:16px}
   .concept p{font-size:14px;color:#b8b2a5;line-height:2.05}
   .concept .num{font-size:11px;letter-spacing:3px;color:var(--dim);margin-bottom:12px}
 
   /* 阵营 */
   .factions{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-  .fc{
-    position:relative;background:var(--bg2);border:1px solid rgba(217,185,106,.14);
-    overflow:hidden;transition:border-color .25s, transform .25s;
-  }
+  .fc{position:relative;background:var(--bg2);border:1px solid var(--line2);overflow:hidden;transition:border-color .25s,transform .25s}
   .fc:hover{border-color:rgba(217,185,106,.5);transform:translateY(-3px)}
   .fc .pic{height:180px;background:#0a0e14 center/cover no-repeat;filter:saturate(.72) brightness(.8)}
   .fc .pic.crest{background-size:52%;background-repeat:no-repeat;background-position:center;filter:saturate(.45) brightness(1.05)}
   .fc .body{padding:18px 18px 22px}
   .fc h4{font-size:16px;letter-spacing:.16em;color:var(--gold2);margin-bottom:8px}
   .fc p{font-size:12.5px;color:var(--muted);line-height:1.95}
-  .fc .motto{
-    margin-top:12px;padding-top:10px;border-top:1px solid rgba(217,185,106,.12);
-    font-size:12px;color:#93897a;letter-spacing:.04em;
-  }
+  .fc .motto{margin-top:12px;padding-top:10px;border-top:1px solid var(--line2);font-size:12px;color:#93897a}
   .fc.sunk .pic{filter:grayscale(.62) brightness(.5)}
   .fc.sunk h4{color:var(--dim)}
   .fc.sunk .motto{color:var(--dim);border-top-color:rgba(140,150,160,.14)}
 
-  /* 入口 */
+  /* 七代号 */
+  .codes{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+  .code{position:relative;background:var(--bg3);border:1px solid var(--line2);overflow:hidden;transition:all .3s}
+  .code:hover{border-color:rgba(217,185,106,.55);transform:translateY(-4px)}
+  .code .port{aspect-ratio:3/4;background:#0a0e14 center top/cover no-repeat;filter:saturate(.7) brightness(.82);transition:filter .3s}
+  .code:hover .port{filter:saturate(.92) brightness(.96)}
+  .code .gl{position:absolute;top:10px;left:10px;font-size:26px;letter-spacing:.1em;color:var(--gold2);text-shadow:0 2px 14px #000;line-height:1}
+  .code .info{padding:14px 12px 16px}
+  .code .nm{font-size:13px;color:var(--gold2);margin-bottom:4px}
+  .code .dp{font-size:10.5px;color:var(--dim);letter-spacing:.1em;margin-bottom:10px}
+  .code .qt{font-size:11.5px;color:#8e8778;line-height:1.85;border-top:1px solid var(--line2);padding-top:9px}
+
+  /* 游戏画面 */
+  .gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .shot{position:relative;overflow:hidden;background:var(--bg3);border:1px solid var(--line2);transition:border-color .3s}
+  .shot:hover{border-color:rgba(217,185,106,.5)}
+  .shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .3s;filter:saturate(.92) brightness(.92)}
+  .shot:hover img{transform:scale(1.03);filter:saturate(1.05) brightness(1)}
+  .shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 16px 12px;background:linear-gradient(transparent,rgba(6,9,13,.94));pointer-events:none}
+  .shot .t{font-size:13px;color:var(--gold2);letter-spacing:.1em}
+  .shot .d{font-size:11px;color:var(--muted);letter-spacing:.04em;margin-top:2px}
+  .shot.wide{grid-column:span 4}
+  .shot.half{grid-column:span 2}
+  .shot.tall{grid-column:span 2}
+  .shot.tall img{aspect-ratio:9/16;object-position:top}
+  .gal-note{font-size:12.5px;color:var(--dim);margin-top:22px;letter-spacing:.04em}
+
+  /* 产品 */
+  .products{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .prod{display:flex;gap:20px;background:var(--bg2);border:1px solid var(--line2);padding:24px 26px;transition:all .25s}
+  .prod:hover{border-color:rgba(217,185,106,.4);background:var(--bg4)}
+  .prod .no{font-size:13px;color:var(--dim);letter-spacing:.1em;flex:none;padding-top:2px;width:26px}
+  .prod h3{font-size:17px;letter-spacing:.1em;color:var(--gold2);margin-bottom:6px}
+  .prod .type{font-size:12px;color:var(--muted);line-height:1.9;margin-bottom:12px}
+  .prod .tagline{font-size:12.5px;color:#8e8778;line-height:1.85;margin-bottom:14px;padding-left:10px;border-left:1px solid var(--line)}
+  .prod .st{display:inline-block;font-size:11px;letter-spacing:.14em;padding:3px 10px;border:1px solid}
+  .st.play{color:#8fbc8a;border-color:rgba(143,188,138,.4);background:rgba(143,188,138,.07)}
+  .st.wip{color:var(--gold);border-color:rgba(217,185,106,.4);background:rgba(217,185,106,.07)}
+  .st.proto{color:#8b9aa6;border-color:rgba(139,154,166,.35);background:rgba(139,154,166,.06)}
+  .prod .note{font-size:11px;color:var(--dim);margin-top:10px;line-height:1.8}
+
+  /* 小说 */
+  .split{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+  .chap{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--line2)}
+  .chap:first-child{padding-top:0}
+  .chap .idx{font-size:11px;letter-spacing:.2em;color:var(--dim);flex:none;padding-top:5px;width:56px}
+  .chap h4{font-size:19px;letter-spacing:.14em;color:var(--gold2);margin-bottom:6px}
+  .chap p{font-size:13px;color:var(--muted);line-height:1.95}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--line2)}
+  .stat{background:var(--bg3);padding:26px 22px}
+  .stat b{display:block;font-size:30px;color:var(--gold);font-weight:400;line-height:1.2}
+  .stat b i{font-style:normal;font-size:14px;color:var(--muted);margin-left:4px;letter-spacing:.1em}
+  .stat span{display:block;font-size:12px;color:var(--dim);letter-spacing:.1em;margin-top:6px}
+
+  /* 美术墙 */
+  .artwall{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .art{position:relative;overflow:hidden;border:1px solid var(--line2);background:var(--bg3);display:flex;flex-direction:column}
+  .art img{width:100%;height:auto;display:block;filter:saturate(.95) brightness(.92);transition:transform .6s,filter .3s}
+  .art:hover img{transform:scale(1.02);filter:saturate(1.05) brightness(1)}
+  .art figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 10px;background:linear-gradient(transparent,rgba(6,9,13,.92));font-size:11.5px;color:var(--gold2);letter-spacing:.1em}
+  .art.a-full{grid-column:span 3}
+
+  /* 介绍卡 */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:2px}
+  .card{background:var(--bg2);border:1px solid var(--line2);overflow:hidden}
+  .card img{width:100%;height:auto;filter:saturate(.95) brightness(.95);transition:filter .3s}
+  .card:hover img{filter:saturate(1.05) brightness(1)}
+  .card .cap{padding:14px 16px;font-size:12px;color:var(--muted);letter-spacing:.06em;border-top:1px solid var(--line2)}
+  .card .cap b{color:var(--gold2);font-weight:400;letter-spacing:.1em}
+
+  /* 找什么人 */
+  .wants{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .want{background:var(--bg2);border:1px solid var(--line2);padding:28px 24px;position:relative;overflow:hidden}
+  .want::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+  .want h4{font-size:15px;letter-spacing:.16em;color:var(--gold2);margin-bottom:12px}
+  .want p{font-size:12.5px;color:var(--muted);line-height:1.95}
+  .want em{font-style:normal;color:var(--gold)}
+
+  /* FAQ */
+  .faq{max-width:900px}
+  .faq details{border-bottom:1px solid var(--line2);padding:20px 0}
+  .faq summary{cursor:pointer;list-style:none;font-size:15.5px;color:var(--gold2);letter-spacing:.06em;display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--gold3);font-size:18px;flex:none;transition:transform .25s}
+  .faq details[open] summary::after{content:"−"}
+  .faq p{margin-top:14px;font-size:13.5px;color:var(--muted);line-height:2.05;padding-right:40px}
+
+  /* 来聊 */
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line2)}
+  .cc{background:var(--bg3);padding:44px 40px;text-align:center}
+  .cc .lab{font-size:11px;letter-spacing:4px;color:var(--dim);margin-bottom:18px}
+  .cc .big{font-size:clamp(24px,3.2vw,38px);letter-spacing:.1em;color:var(--gold2);line-height:1.25;margin-bottom:10px}
+  .cc .hint{font-size:12.5px;color:var(--muted);letter-spacing:.06em;line-height:1.9;margin-bottom:22px}
+  .cc .act{display:inline-block;font-size:12px;letter-spacing:.2em;padding:10px 26px;border:1px solid var(--line);color:var(--gold);cursor:pointer;transition:all .25s;background:none;font-family:inherit}
+  .cc .act:hover{background:rgba(217,185,106,.12);border-color:var(--gold)}
+  .cc .fine{font-size:11px;color:var(--dim);margin-top:14px;letter-spacing:.06em}
+
+  /* 三扇门 */
   .entries{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .entry{
-    display:block;padding:34px 30px;background:var(--bg2);
-    border:1px solid var(--line);transition:all .25s;
-  }
-  .entry:hover{background:#131b24;border-color:var(--gold);transform:translateY(-3px)}
+  .entry{display:block;padding:34px 30px;background:var(--bg2);border:1px solid var(--line);transition:all .25s}
+  .entry:hover{background:var(--bg4);border-color:var(--gold);transform:translateY(-3px)}
   .entry .tag{font-size:11px;letter-spacing:3px;color:var(--dim);margin-bottom:14px}
   .entry h3{font-size:20px;letter-spacing:.16em;color:var(--gold2);margin-bottom:12px}
   .entry p{font-size:13px;color:var(--muted);line-height:1.95;margin-bottom:16px}
@@ -138,22 +193,43 @@
   /* 页脚 */
   footer{border-top:1px solid var(--line);padding:56px 0 44px;background:var(--bg2)}
   .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
-  .foot-note{font-size:12.5px;color:var(--dim);line-height:2.1;max-width:620px}
+  .foot-note{font-size:12.5px;color:var(--dim);line-height:2.1;max-width:660px}
   .foot-note strong{color:#9c9384;font-weight:400}
   .foot-motto{font-size:14px;letter-spacing:.16em;color:var(--gold);text-align:right}
   .foot-motto small{display:block;font-size:11px;letter-spacing:2px;color:var(--dim);margin-top:10px}
 
+  @media (max-width:1080px){
+    .codes{grid-template-columns:repeat(4,1fr)}
+    .wants{grid-template-columns:repeat(2,1fr)}
+    .split{grid-template-columns:1fr;gap:40px}
+    .gallery{grid-template-columns:repeat(4,1fr)}
+    .shot.wide{grid-column:span 4}
+    .shot.half,.shot.tall{grid-column:span 2}
+  }
   @media (max-width:1000px){
     .concepts{grid-template-columns:1fr}
     .factions{grid-template-columns:repeat(2,1fr)}
     .entries{grid-template-columns:1fr}
+    .products{grid-template-columns:1fr}
+    .contact{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .artwall{grid-template-columns:1fr}
+    .art.a-full{grid-column:span 1}
   }
   @media (max-width:640px){
     .wrap,.topbar .inner{padding-left:20px;padding-right:20px}
-    section{padding:60px 0}
+    section{padding:58px 0}
     .factions{grid-template-columns:1fr}
+    .codes{grid-template-columns:repeat(2,1fr)}
+    .wants{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr 1fr}
     .nav{display:none}
     .foot-motto{text-align:left}
+    .cc{padding:34px 22px}
+    .hero-meta{gap:26px}
+    .gallery{grid-template-columns:1fr}
+    .shot.wide,.shot.half,.shot.tall{grid-column:span 1}
+    .faq p{padding-right:0}
   }
 </style>
 </head>
@@ -163,13 +239,19 @@
   <div class="inner">
     <div class="brand">戈克世界<small>GOK WORLD</small></div>
     <nav class="nav">
-      <a href="lore.html">世界观</a>
-      <a href="atlas.html">专题地图</a>
-      <a href="ancient.html">古地图</a>
+      <a href="#factions">阵营</a>
+      <a href="#codes">七代号</a>
+      <a href="#shots">画面</a>
+      <a href="#games">游戏</a>
+      <a href="#novel">小说</a>
+      <a href="#art">美术</a>
+      <a href="#faq">问答</a>
+      <a href="#join">来聊</a>
     </nav>
   </div>
 </div>
 
+<!-- ① 封面 -->
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner wrap">
@@ -184,11 +266,20 @@
     <div class="punch">这个世界打的不是力量，是解释权。</div>
     <div class="btns">
       <a class="btn solid" href="lore.html">进入世界观</a>
-      <a class="btn" href="atlas.html">打开地图集</a>
+      <a class="btn" href="#shots">先看画面</a>
+      <a class="btn" href="#join">加入交流群</a>
+    </div>
+    <div class="hero-meta">
+      <div><b>7</b>款可玩产品</div>
+      <div><b>48</b>位角色档案</div>
+      <div><b>27.4</b>万字小说</div>
+      <div><b>8</b>个阵营，一个已沉</div>
     </div>
   </div>
+  <div class="scrolldown">向 下</div>
 </div>
 
+<!-- ② 三个词 -->
 <section>
   <div class="wrap">
     <div class="sec-head">
@@ -216,7 +307,8 @@
   </div>
 </section>
 
-<section style="background:var(--bg2)">
+<!-- ③ 阵营 -->
+<section class="alt" id="factions">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-en">S I X &nbsp; P O W E R S</div>
@@ -224,74 +316,362 @@
       <p class="sec-sub">七个还在的势力，加一个已经沉下去的。世界观回答「世界是什么」，阵营回答「谁在抢」。</p>
     </div>
     <div class="factions">
-      <div class="fc">
-        <div class="pic" style="background-image:url(assets/faction_empire.webp)"></div>
-        <div class="body">
-          <h4>帝国</h4>
-          <p>一台必须平账的机器。炉子不能停，账不能红。</p>
-          <div class="motto">神不会给你饭吃，炉子会。</div>
+      <div class="fc"><div class="pic" style="background-image:url(assets/faction_empire.webp)"></div>
+        <div class="body"><h4>帝国</h4><p>一台必须平账的机器。炉子不能停，账不能红。</p><div class="motto">神不会给你饭吃，炉子会。</div></div></div>
+      <div class="fc"><div class="pic" style="background-image:url(assets/faction_republic.webp)"></div>
+        <div class="body"><h4>共和国</h4><p>七城邦的体面。宁可饿着，也不肯难看。</p><div class="motto">不体面。</div></div></div>
+      <div class="fc"><div class="pic" style="background-image:url(assets/faction_greyharbor.webp)"></div>
+        <div class="body"><h4>灰港同盟</h4><p>国界不承认，账界承认。港口的规矩比法律管用。</p><div class="motto">名字就是价钱。</div></div></div>
+      <div class="fc"><div class="pic" style="background-image:url(assets/faction_kset.webp)"></div>
+        <div class="body"><h4>凯斯特学院</h4><p>混沌中立。它不管谁对谁错，只管别打起来。</p><div class="motto">谁要打仗，我们先杀谁。</div></div></div>
+      <div class="fc"><div class="pic crest" style="background-image:url(assets/pus.svg)"></div>
+        <div class="body"><h4>普卫岛</h4><p>善良中立。劝、提醒、拖，就是不站边。</p><div class="motto">先问名字。</div></div></div>
+      <div class="fc"><div class="pic crest" style="background-image:url(assets/xizhao.svg)"></div>
+        <div class="body"><h4>西昭</h4><p>古堡是历史形态，当代西昭是部落联盟。钥匙还没找回来。</p><div class="motto">火是拿来听的。</div></div></div>
+      <div class="fc"><div class="pic" style="background-image:url(assets/faction_losutai.webp)"></div>
+        <div class="body"><h4>洛斯汰</h4><p>跟着潮汐活着。潮来就活，潮走就等，从不急着上岸。</p><div class="motto">潮来了，就活。</div></div></div>
+      <div class="fc sunk"><div class="pic" style="background-image:url(assets/snow_capital.webp)"></div>
+        <div class="body"><h4>雪都 · 已沉</h4><p>历史阵营。它的初代领袖叫深雪，人早就不在了，但那句预言还挂在很多人的嘴上。</p><div class="motto">雪落尽了，雪都就醒了。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 七代号 -->
+<section id="codes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">S E V E N &nbsp; C O D E S</div>
+      <h2>七代号</h2>
+      <p class="sec-sub">普卫岛六个部门加本部，每个部门一个人。他们不站阵营，只负责让事情别失控。</p>
+    </div>
+    <div class="codes">
+      <div class="code"><div class="port" style="background-image:url(assets/preview/portrait/p2-lain.webp)"></div><div class="gl">序</div>
+        <div class="info"><div class="nm">莱恩·科斯特</div><div class="dp">本部 · 高级协调者</div><div class="qt">先问名字。</div></div></div>
+      <div class="code"><div class="port" style="background-image:url(assets/preview/portrait/p2-verious.webp)"></div><div class="gl">锲</div>
+        <div class="info"><div class="nm">维里欧斯</div><div class="dp">学院部</div><div class="qt">我在等一个能让我出手的理由。</div></div></div>
+      <div class="code"><div class="port" style="background-image:url(assets/preview/portrait/p2-timon.webp)"></div><div class="gl">瞬</div>
+        <div class="info"><div class="nm">提蒙·克若诺</div><div class="dp">协调部</div><div class="qt">正确不能救人。只有提前，可以。</div></div></div>
+      <div class="code"><div class="port" style="background-image:url(assets/preview/portrait/p2-aidric.webp)"></div><div class="gl">衡</div>
+        <div class="info"><div class="nm">艾德里克</div><div class="dp">保卫部</div><div class="qt">它的意思是——现在。</div></div></div>
+      <div class="code"><div class="port" style="background-image:url(assets/preview/portrait/p2-orlicas.webp)"></div><div class="gl">慧</div>
+        <div class="info"><div class="nm">欧莉卡斯</div><div class="dp">科研部</div><div class="qt">记录它，别解释它。</div></div></div>
+      <div class="code"><div class="port" style="background-image:url(assets/preview/portrait/p2-shextena.webp)"></div><div class="gl">镜</div>
+        <div class="info"><div class="nm">希斯蒂娜</div><div class="dp">医疗部</div><div class="qt">黑签是标准，不是心情。</div></div></div>
+      <div class="code"><div class="port" style="background-image:url(assets/preview/portrait/p2-miyuki.webp)"></div><div class="gl">昭</div>
+        <div class="info"><div class="nm">一之濑深雪</div><div class="dp">后勤部</div><div class="qt">雪落尽了，雪都就醒了。</div></div></div>
+    </div>
+    <p class="gal-note">另外还有四十一位角色的完整档案，分布在八个阵营里。世界观回答「世界是什么」，阵营回答「谁在抢」，人物回答「谁欠谁」。</p>
+  </div>
+</section>
+
+<!-- ⑤ 游戏画面 -->
+<section class="alt" id="shots">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">I N &nbsp; G A M E</div>
+      <h2>真机画面</h2>
+      <p class="sec-sub">下面这些不是概念图，是现在跑着的界面截的。有几款还是半成品，界面会变。</p>
+    </div>
+    <div class="gallery">
+      <figure class="shot wide">
+        <img src="assets/preview/g-card-home.webp" alt="流脉牌局 主页" loading="lazy">
+        <figcaption><div class="t">流脉牌局 · 主页</div><div class="d">八阵营牌背，右下角挂着交流群号</div></figcaption>
+      </figure>
+      <figure class="shot half">
+        <img src="assets/preview/g-card-codex.webp" alt="流脉牌局 卡牌图鉴" loading="lazy">
+        <figcaption><div class="t">流脉牌局 · 卡牌图鉴</div><div class="d">按阵营归档的卡面</div></figcaption>
+      </figure>
+      <figure class="shot half">
+        <img src="assets/preview/g-card-kit.webp" alt="流脉牌局 构筑" loading="lazy">
+        <figcaption><div class="t">流脉牌局 · 构筑卡组</div><div class="d">手动搭，也有一键自动构</div></figcaption>
+      </figure>
+      <figure class="shot half">
+        <img src="assets/preview/g-defense-title.webp" alt="流脉防线 标题" loading="lazy">
+        <figcaption><div class="t">流脉防线 · 标题</div><div class="d">13×7 的岛，你只有一条流脉</div></figcaption>
+      </figure>
+      <figure class="shot half">
+        <img src="assets/preview/g-defense-select.webp" alt="流脉防线 选派" loading="lazy">
+        <figcaption><div class="t">流脉防线 · 派驻</div><div class="d">七个人，只能派出去几个</div></figcaption>
+      </figure>
+      <figure class="shot half">
+        <img src="assets/preview/g-xuedu-play.webp" alt="雪都路 剧情" loading="lazy">
+        <figcaption><div class="t">雪都路 · 剧情</div><div class="d">WebGAL 引擎，现代背景二创</div></figcaption>
+      </figure>
+      <figure class="shot tall">
+        <img src="assets/preview/g-shop-boss.webp" alt="账铺 竖屏" loading="lazy">
+        <figcaption><div class="t">账铺 · 手机竖屏</div><div class="d">安卓端实际尺寸</div></figcaption>
+      </figure>
+      <figure class="shot " style="grid-column:span 2">
+        <img src="assets/preview/a-poster-game.webp" alt="实机宣传海报" loading="lazy">
+        <figcaption><div class="t">实机宣传海报</div><div class="d">宣传片里剪出来的一张</div></figcaption>
+      </figure>
+      <figure class="shot" style="grid-column:span 2">
+        <img src="assets/preview/a-awaken.webp" alt="戈克觉醒" loading="lazy">
+        <figcaption><div class="t">原画 · 戈克觉醒</div><div class="d">规则第一次漏出来的样子</div></figcaption>
+      </figure>
+      <figure class="shot" style="grid-column:span 2">
+        <img src="assets/preview/a-skycity.webp" alt="浮空城" loading="lazy">
+        <figcaption><div class="t">原画 · 浮空城</div><div class="d">学院那一座，悬在云上</div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ 产品 -->
+<section id="games">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">S E V E N &nbsp; W O R K S</div>
+      <h2>七款可玩的东西</h2>
+      <p class="sec-sub">都还没上过平台。有的能直接玩，有的还在打样，反正一分钱没收过。</p>
+    </div>
+    <div class="products">
+      <div class="prod"><div class="no">01</div><div>
+        <h3>戈克纪元：流脉</h3>
+        <div class="type">单机回合制大战略 · 六边形地图 · 经营 + 塔防 + 势力对抗</div>
+        <div class="tagline">你坐在最上面，替一整条国家线算账。粮食、兵源、炉子、边界，任何一项红了都得有人背。</div>
+        <div class="st play">首版可玩 · Windows</div>
+        <div class="note">Godot 工程，桌面端直接跑。</div>
+      </div></div>
+
+      <div class="prod"><div class="no">02</div><div>
+        <h3>戈克世界：流脉牌局</h3>
+        <div class="type">1v1 卡牌对战 · 八阵营 · 网页 + 桌面双端</div>
+        <div class="tagline">每个阵营一套打法，牌面写的是这个阵营怎么算账。可联机，有排位，三档 AI。</div>
+        <div class="st wip">抢先版在迭代</div>
+        <div class="note">仓库里最成熟的一条线，卡牌文案全部按实际实现重写过。</div>
+      </div></div>
+
+      <div class="prod"><div class="no">03</div><div>
+        <h3>戈克世界：流脉防线</h3>
+        <div class="type">单机 2D 即时塔防 · 网格部署 + 轻叙事 + 战后案卷</div>
+        <div class="tagline">守完一关不算完，还得写一份事后报告。报告怎么写，人就怎么活。</div>
+        <div class="st proto">2 关可玩原型</div>
+        <div class="note">设计案 15.5 万字，目前只有两关跑通。</div>
+      </div></div>
+
+      <div class="prod"><div class="no">04</div><div>
+        <h3>戈克世界：账铺</h3>
+        <div class="type">走贩经营 · 网页 + 安卓</div>
+        <div class="tagline">你在灰港挂招牌收账，客人一个比一个不干净。收什么、押什么、替谁瞒着，自己看着办。</div>
+        <div class="st play">1.60.0 · 网页 + APK</div>
+        <div class="note">目录里叫灰港账铺，对外统一叫《戈克世界·账铺》。</div>
+      </div></div>
+
+      <div class="prod"><div class="no">05</div><div>
+        <h3>鹿铃亭</h3>
+        <div class="type">经营模拟 · 安卓</div>
+        <div class="tagline">一间店，一天分几段，客人走了账还在。</div>
+        <div class="st play">0.5.6 · APK</div>
+        <div class="note">像素风，正在补美术与交互手感。</div>
+      </div></div>
+
+      <div class="prod"><div class="no">06</div><div>
+        <h3>雪都路</h3>
+        <div class="type">WebGAL galgame · 现代背景</div>
+        <div class="tagline">同一批人，搬进现代社会，走恋爱路线。共通线、各自攻略线、后日谈，一个都不能少。</div>
+        <div class="st wip">持续更新</div>
+        <div class="note">这是 IP 二创，正典设定在它身上不生效，别拿它反推世界观。</div>
+      </div></div>
+
+      <div class="prod"><div class="no">07</div><div>
+        <h3>流脉初醒</h3>
+        <div class="type">Minecraft 整合包</div>
+        <div class="tagline">把流脉搬进方块世界，模组串起来讲同一套东西。</div>
+        <div class="st proto">0.3.0-p0</div>
+        <div class="note">第三方平台的衍生内容，不参与主线排期。</div>
+      </div></div>
+
+      <div class="prod"><div class="no">—</div><div>
+        <h3>怎么拿到</h3>
+        <div class="type">没有 Steam，没有 TapTap，也没有应用商店</div>
+        <div class="tagline">想试哪一款，进交流群说一声，作者直接发。安装包动辄几百兆，不放在网页里。</div>
+        <div class="st proto">找群主要</div>
+        <div class="note">这也是为什么这一页只需要一个群号。</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ 小说 -->
+<section class="alt" id="novel">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">T H E &nbsp; N O V E L</div>
+      <h2>小说是正典</h2>
+      <p class="sec-sub">游戏和卡牌都是衍生，衍生不许反过来改设定。所有事情以这三章和人物篇为准。</p>
+    </div>
+    <div class="split">
+      <div>
+        <div class="chap">
+          <div class="idx">第 一 章</div>
+          <div><h4>规程之外</h4><p>从一场没人愿意签字的火灾开始。规程写得很清楚，问题是写规程的人不在现场。</p></div>
+        </div>
+        <div class="chap">
+          <div class="idx">第 二 章</div>
+          <div><h4>一百秒</h4><p>一百秒里，谁先撤。时间一到，谁留下谁背账。</p></div>
+        </div>
+        <div class="chap">
+          <div class="idx">第 三 章</div>
+          <div><h4>结案</h4><p>报告怎么写，人就怎么活。这一章里，档案比枪管用。</p></div>
+        </div>
+        <div class="chap" style="border-bottom:none">
+          <div class="idx">人 物 篇</div>
+          <div><h4>二十一篇，七位主角</h4><p>序、衡、慧、镜、瞬、锲、昭。每人的来处、欠下的账、和那个说不出口的理由。</p></div>
         </div>
       </div>
-      <div class="fc">
-        <div class="pic" style="background-image:url(assets/faction_republic.webp)"></div>
-        <div class="body">
-          <h4>共和国</h4>
-          <p>七城邦的体面。宁可饿着，也不肯难看。</p>
-          <div class="motto">不体面。</div>
-        </div>
-      </div>
-      <div class="fc">
-        <div class="pic" style="background-image:url(assets/faction_greyharbor.webp)"></div>
-        <div class="body">
-          <h4>灰港同盟</h4>
-          <p>国界不承认，账界承认。港口的规矩比法律管用。</p>
-          <div class="motto">名字就是价钱。</div>
-        </div>
-      </div>
-      <div class="fc">
-        <div class="pic" style="background-image:url(assets/faction_kset.webp)"></div>
-        <div class="body">
-          <h4>凯斯特学院</h4>
-          <p>混沌中立。它不管谁对谁错，只管别打起来。</p>
-          <div class="motto">谁要打仗，我们先杀谁。</div>
-        </div>
-      </div>
-      <div class="fc">
-        <div class="pic crest" style="background-image:url(assets/pus.svg)"></div>
-        <div class="body">
-          <h4>普卫岛</h4>
-          <p>善良中立。劝、提醒、拖，就是不站边。</p>
-          <div class="motto">先问名字。</div>
-        </div>
-      </div>
-      <div class="fc">
-        <div class="pic crest" style="background-image:url(assets/xizhao.svg)"></div>
-        <div class="body">
-          <h4>西昭</h4>
-          <p>古堡是历史形态，当代西昭是部落联盟。钥匙还没找回来。</p>
-          <div class="motto">火是拿来听的。</div>
-        </div>
-      </div>
-      <div class="fc">
-        <div class="pic" style="background-image:url(assets/faction_losutai.webp)"></div>
-        <div class="body">
-          <h4>洛斯汰</h4>
-          <p>跟着潮汐活着。潮来就活，潮走就等，从不急着上岸。</p>
-          <div class="motto">潮来了，就活。</div>
-        </div>
-      </div>
-      <div class="fc sunk">
-        <div class="pic" style="background-image:url(assets/snow_capital.webp)"></div>
-        <div class="body">
-          <h4>雪都 · 已沉</h4>
-          <p>历史阵营。它的初代领袖叫深雪，人早就不在了，但那句预言还挂在很多人的嘴上。</p>
-          <div class="motto">雪落尽了，雪都就醒了。</div>
-        </div>
+      <div class="stats">
+        <div class="stat"><b>27.4<i>万字</i></b><span>小说与人物篇正文</span></div>
+        <div class="stat"><b>5.3<i>万字</i></b><span>世界总纲与正史设定</span></div>
+        <div class="stat"><b>48<i>位</i></b><span>角色设定档案</span></div>
+        <div class="stat"><b>8<i>方</i></b><span>阵营，含已沉的雪都</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ⑧ 美术 -->
+<section id="art">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">A R T &nbsp; W A L L</div>
+      <h2>画和片子</h2>
+      <p class="sec-sub">美术资产是 AI 辅助生成 + 人工修整，发布时如实标注，不藏。下面这些都能点开放大看。</p>
+    </div>
+    <div class="artwall">
+      <figure class="art a-full">
+        <img src="assets/preview/a-poster-main.webp" alt="主视觉海报" loading="lazy">
+        <figcaption>主视觉海报 · 戈克纪元：流脉</figcaption>
+      </figure>
+      <figure class="art">
+        <img src="assets/preview/a-poster-hero.webp" alt="英雄立绘海报" loading="lazy">
+        <figcaption>英雄立绘海报</figcaption>
+      </figure>
+      <figure class="art">
+        <img src="assets/preview/a-awaken.webp" alt="戈克觉醒" loading="lazy">
+        <figcaption>原画 · 戈克觉醒</figcaption>
+      </figure>
+      <figure class="art">
+        <img src="assets/preview/a-skycity.webp" alt="浮空城" loading="lazy">
+        <figcaption>原画 · 浮空城</figcaption>
+      </figure>
+    </div>
+
+    <div class="sec-head" style="margin-top:56px;margin-bottom:26px">
+      <div class="sec-en">C H A R A C T E R S</div>
+      <h3 style="font-size:22px;letter-spacing:.12em;color:var(--gold2);font-weight:600">角色立绘</h3>
+      <p class="sec-sub" style="margin-top:8px;font-size:13px">各阵营代表，全部是精二稿。三十六位角色有精二立绘，共 38 个文件。</p>
+    </div>
+    <div class="cards">
+      <div class="card"><img src="assets/preview/portrait/p2-otto.webp" alt="奥托·汉瑟尔 精二立绘" loading="lazy">
+        <div class="cap"><b>奥托·汉瑟尔</b><br>帝国 · 皇帝 · 我不需要你忠诚，我只需要你的产出</div></div>
+      <div class="card"><img src="assets/preview/portrait/p2-wolfram.webp" alt="沃尔夫拉姆·冯·施泰因 精二立绘" loading="lazy">
+        <div class="cap"><b>沃尔夫拉姆·冯·施泰因</b><br>共和国 · 议长 · 我不需要你是干净的，我需要你是安静的</div></div>
+      <div class="card"><img src="assets/preview/portrait/p2-monarch.webp" alt="莫纳克 精二立绘" loading="lazy">
+        <div class="cap"><b>莫纳克</b><br>灰港 · 引荐人 · 灰港没有王，除非你把所有人都买了</div></div>
+      <div class="card"><img src="assets/preview/portrait/p2-karna.webp" alt="卡尔纳 精二立绘" loading="lazy">
+        <div class="cap"><b>卡尔纳</b><br>西昭 · 血爵 · 账本上还差多少</div></div>
+      <div class="card"><img src="assets/preview/portrait/p2-lanxi.webp" alt="澜汐 精二立绘" loading="lazy">
+        <div class="cap"><b>澜汐</b><br>洛斯汰 · 潮主 · 至少我的族人还活着</div></div>
+      <div class="card"><img src="assets/preview/portrait/p2-elena.webp" alt="伊莲娜·索菲 精二立绘" loading="lazy">
+        <div class="cap"><b>伊莲娜·索菲</b><br>共和国 · 大神官 · 神迹，也许有别的解释</div></div>
+    </div>
+
+    <div class="strip" style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line2);margin-top:26px">
+      <div style="background:var(--bg2);padding:26px 22px"><h4 style="font-size:14px;letter-spacing:.14em;color:var(--gold2);margin-bottom:10px">角色立绘</h4><p style="font-size:12.5px;color:var(--muted);line-height:1.9">三十六位角色有精二立绘，共 38 个文件。莱恩、提蒙有 v2，维里欧斯有 v3，希斯蒂娜有 v2。</p></div>
+      <div style="background:var(--bg2);padding:26px 22px"><h4 style="font-size:14px;letter-spacing:.14em;color:var(--gold2);margin-bottom:10px">世界地图</h4><p style="font-size:12.5px;color:var(--muted);line-height:1.9">三版：地形图、古地图、可切换的六层专题图。地形、势力、航路、城市、历史、生物群系。</p></div>
+      <div style="background:var(--bg2);padding:26px 22px"><h4 style="font-size:14px;letter-spacing:.14em;color:var(--gold2);margin-bottom:10px">卡牌插画</h4><p style="font-size:12.5px;color:var(--muted);line-height:1.9">数百张阵营卡图，牌局的全部素材都在里面。</p></div>
+      <div style="background:var(--bg2);padding:26px 22px"><h4 style="font-size:14px;letter-spacing:.14em;color:var(--gold2);margin-bottom:10px">片子与配音</h4><p style="font-size:12.5px;color:var(--muted);line-height:1.9">实机宣传片一条、剧情 CG 八段；配音<b style="color:var(--gold);font-weight:400">零条</b>。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑨ 找什么人 -->
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">W H A T &nbsp; W E &nbsp; N E E D</div>
+      <h2>现在想找什么</h2>
+      <p class="sec-sub">一个人做到现在，缺的不是想法，是手。</p>
+    </div>
+    <div class="wants">
+      <div class="want"><h4>美术</h4><p>卡牌插画、场景概念、UI 皮肤。目前 <em>AI 出图 + 人修</em>，想找能补关键资产的人。</p></div>
+      <div class="want"><h4>配音</h4><p>牌局到现在 <em>0 条语音</em>。八位阵营领袖各四句，就能让角色从纸片变成人。</p></div>
+      <div class="want"><h4>发行 / 上架</h4><p>七款产品都 <em>没上过任何平台</em>。缺经验，也缺渠道，愿意一起学的也行。</p></div>
+      <div class="want"><h4>二创 / 联动</h4><p>同人、跑团模组、联名都能谈。设定给得开，只要不反向改正典。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑩ FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">Q &amp; A</div>
+      <h2>你可能想问</h2>
+      <p class="sec-sub">第一次点进来最常问的几个，先答在这儿，省得你进群再问一遍。</p>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>游戏怎么拿到？免费吗？</summary>
+        <p>都没上过平台，也没有商店链接。想试哪一款，进交流群说一声，作者直接把安装包发给你。到现在一分钱没收过，也没打算收。</p>
+      </details>
+      <details>
+        <summary>世界观从哪看起？</summary>
+        <p>先看完这一页的三个词，再点<a href="lore.html">世界观介绍</a>从头读一遍，然后去看小说第一章《规程之外》。地图是配菜，想看地理关系就开<a href="atlas.html">专题地图</a>，六层可以切换。</p>
+      </details>
+      <details>
+        <summary>小说和游戏，哪个算数？</summary>
+        <p>小说和设定是正典，游戏、卡牌、整合包都是衍生。衍生可以自由发挥，但不能反过来改设定。雪都路是二创，它把人物搬到现代社会了，那套设定不算进正史。</p>
+      </details>
+      <details>
+        <summary>为什么一会儿说六方，一会儿说八阵营？</summary>
+        <p>六方是正典里的现役势力。卡牌里的「八阵营」是把已沉的雪都和洛斯汰也各算了一方，扩出来的游戏玩法口径，不是设定改了口。本页面上写的是「七个还在的势力，加一个已经沉下去的」，这个说法两边都不冲突。</p>
+      </details>
+      <details>
+        <summary>美术是 AI 画的吗？</summary>
+        <p>一部分是。流程是 AI 出图再人工修整，比例不低，所以统一标明。已经写了一份 AI 美术与音频的披露口径，发布时会如实标注，不藏这件事。</p>
+      </details>
+      <details>
+        <summary>能二创吗？能商用吗？</summary>
+        <p>同人、跑团模组、联名都欢迎，设定给得挺开，只要不反向改正典。商用和二创改编要先联系作者谈。另外一句请求：别拿这些图去训商用自己的模型。</p>
+      </details>
+      <details>
+        <summary>为什么强调「不写没有代价的胜利」？</summary>
+        <p>这是创作底线。这个世界里每一次调用都在欠账，每个人物都得欠点什么，不写完美的人。所以故事里没有白拿的好处，赢了也要付账。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ⑪ 来聊 -->
+<section class="alt" id="join">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">C O M E &nbsp; I N</div>
+      <h2>来聊</h2>
+      <p class="sec-sub">设定、约稿、挑刺、单纯想看进度，都从这里进。</p>
+    </div>
+    <div class="contact">
+      <div class="cc">
+        <div class="lab">Q Q &nbsp; 群</div>
+        <div class="big">1132308724</div>
+        <div class="hint">戈克世界交流群<br>设定讨论、版本抢先、约稿二创都在里面</div>
+        <button class="act" id="copyQq" type="button">复制群号</button>
+        <div class="fine" id="copyTip">找不到群就直接搜这个群号</div>
+      </div>
+      <div class="cc">
+        <div class="lab">B I L I B I L I</div>
+        <div class="big">希斯蒂娜Shextina</div>
+        <div class="hint">实机演示、开发进度、边做边讲<br>有片子先发这儿</div>
+        <a class="act" href="https://search.bilibili.com/all?keyword=%E5%B8%8C%E6%96%AF%E8%92%82%E5%A8%9CShextina" target="_blank" rel="noopener">在 B 站搜这个名字</a>
+        <div class="fine">IP 官方号，以后片子都发这儿</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑫ 三扇门 -->
 <section>
   <div class="wrap">
     <div class="sec-head">
@@ -328,7 +708,8 @@
       <strong>创作底线：</strong>不写「没有代价的胜利」，每个人物都得欠点什么，不写完美的人。<br>
       <strong>关于衍生：</strong>小说与设定是正典，游戏与卡牌是衍生，衍生不反向改写设定。<br>
       <strong>关于美术：</strong>部分图像为 AI 辅助生成后经人工修整，发布时如实标注。<br>
-      <strong>版权：</strong>世界观与人物设定归作者所有，转载注明出处，商用与二创改编请先联系。
+      <strong>版权：</strong>世界观与人物设定归作者所有，转载注明出处，商用与二创改编请先联系。<br>
+      <strong>交流群：</strong>1132308724 &nbsp;·&nbsp; <strong>B 站：</strong>希斯蒂娜Shextina
     </div>
     <div class="foot-motto">
       每一条线，都得有人画。
@@ -336,6 +717,25 @@
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById('copyQq').addEventListener('click', function () {
+    var tip = document.getElementById('copyTip');
+    var done = function () { tip.textContent = '已复制：1132308724'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('1132308724').then(done, function () {
+        tip.textContent = '复制失败，手动记一下：1132308724';
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = '1132308724';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { tip.textContent = '复制失败，群号：1132308724'; }
+      document.body.removeChild(ta);
+    }
+  });
+</script>
 
 </body>
 </html>
