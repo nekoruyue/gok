@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>戈克世界 · GOK WORLD</title>
+<meta name="description" content="2034 年伽马射线暴之后，世界归零；千年后人类捡到「戈克」与「魔法」，然后为了谁说了算打了很久的仗。">
+<meta property="og:title" content="戈克世界">
+<meta property="og:description" content="这个世界打的不是力量，是解释权。">
+<meta property="og:image" content="assets/worldmap_ai.webp">
+<style>
+  :root{
+    --bg:#080b10;
+    --bg2:#0d1218;
+    --panel:#111820;
+    --line:rgba(217,185,106,.22);
+    --gold:#d9b96a;
+    --gold2:#f0d9a0;
+    --text:#e8e2d4;
+    --muted:#8b9aa6;
+    --dim:#5c6a76;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;
+    line-height:1.9;overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  a{color:var(--gold);text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+
+  /* 顶栏 */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(8,11,16,.86);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .inner{
+    max-width:1180px;margin:0 auto;padding:14px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+  }
+  .brand{font-size:15px;letter-spacing:6px;color:var(--gold2)}
+  .brand small{display:block;font-size:9px;letter-spacing:4px;color:var(--dim);margin-top:2px}
+  .nav{display:flex;gap:26px;font-size:13px;letter-spacing:.12em}
+  .nav a{color:var(--muted);transition:color .2s}
+  .nav a:hover{color:var(--gold2)}
+
+  /* 封面 */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
+  .hero-bg{
+    position:absolute;inset:0;
+    background:url(assets/worldmap_ai.webp) center/cover no-repeat;
+    opacity:.34;filter:saturate(.55) contrast(1.05);
+  }
+  .hero-bg::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(8,11,16,.55) 0%,rgba(8,11,16,.35) 40%,var(--bg) 96%);
+  }
+  .hero-inner{position:relative;z-index:2;padding-top:120px;padding-bottom:80px}
+  .kicker{
+    font-size:12px;letter-spacing:5px;color:var(--gold);
+    display:flex;align-items:center;gap:14px;margin-bottom:22px;
+  }
+  .kicker::before{content:"";width:44px;height:1px;background:var(--gold);opacity:.6}
+  h1.title{
+    font-size:clamp(46px,9vw,104px);letter-spacing:.12em;font-weight:600;
+    color:var(--gold2);line-height:1.1;margin-bottom:8px;
+    text-shadow:0 6px 40px rgba(0,0,0,.8);
+  }
+  .title-en{font-size:clamp(11px,1.6vw,14px);letter-spacing:10px;color:var(--dim);margin-bottom:34px}
+  .lede{
+    max-width:660px;font-size:clamp(15px,1.7vw,18px);color:#cfc7b6;
+    line-height:2.1;margin-bottom:14px;
+  }
+  .lede em{font-style:normal;color:var(--gold)}
+  .punch{
+    font-size:clamp(16px,1.9vw,21px);color:var(--gold2);letter-spacing:.06em;
+    margin:26px 0 40px;padding-left:20px;border-left:2px solid var(--gold);
+  }
+  .btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{
+    display:inline-block;padding:13px 34px;font-size:14px;letter-spacing:.2em;
+    border:1px solid var(--line);color:var(--gold);transition:all .25s;
+  }
+  .btn:hover{background:rgba(217,185,106,.1);border-color:var(--gold);color:var(--gold2)}
+  .btn.solid{background:var(--gold);color:#0a0d12;border-color:var(--gold);font-weight:600}
+  .btn.solid:hover{background:var(--gold2);border-color:var(--gold2);color:#0a0d12}
+
+  /* 通用段 */
+  section{padding:88px 0}
+  .sec-head{margin-bottom:52px}
+  .sec-en{font-size:11px;letter-spacing:5px;color:var(--dim);margin-bottom:12px}
+  h2{font-size:clamp(26px,3.6vw,40px);letter-spacing:.1em;color:var(--gold2);font-weight:600;margin-bottom:14px}
+  .sec-sub{color:var(--muted);font-size:14px;letter-spacing:.08em}
+
+  /* 三个概念 */
+  .concepts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}
+  .concept{background:var(--bg2);padding:38px 32px}
+  .concept h3{font-size:19px;letter-spacing:.24em;color:var(--gold);margin-bottom:16px}
+  .concept p{font-size:14px;color:#b8b2a5;line-height:2.05}
+  .concept .num{font-size:11px;letter-spacing:3px;color:var(--dim);margin-bottom:12px}
+
+  /* 阵营 */
+  .factions{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .fc{
+    position:relative;background:var(--bg2);border:1px solid rgba(217,185,106,.14);
+    overflow:hidden;transition:border-color .25s, transform .25s;
+  }
+  .fc:hover{border-color:rgba(217,185,106,.5);transform:translateY(-3px)}
+  .fc .pic{height:180px;background:#0a0e14 center/cover no-repeat;filter:saturate(.72) brightness(.8)}
+  .fc .pic.crest{background-size:52%;background-repeat:no-repeat;background-position:center;filter:saturate(.45) brightness(1.05)}
+  .fc .body{padding:18px 18px 22px}
+  .fc h4{font-size:16px;letter-spacing:.16em;color:var(--gold2);margin-bottom:8px}
+  .fc p{font-size:12.5px;color:var(--muted);line-height:1.95}
+  .fc .motto{
+    margin-top:12px;padding-top:10px;border-top:1px solid rgba(217,185,106,.12);
+    font-size:12px;color:#93897a;letter-spacing:.04em;
+  }
+  .fc.sunk .pic{filter:grayscale(.62) brightness(.5)}
+  .fc.sunk h4{color:var(--dim)}
+  .fc.sunk .motto{color:var(--dim);border-top-color:rgba(140,150,160,.14)}
+
+  /* 入口 */
+  .entries{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .entry{
+    display:block;padding:34px 30px;background:var(--bg2);
+    border:1px solid var(--line);transition:all .25s;
+  }
+  .entry:hover{background:#131b24;border-color:var(--gold);transform:translateY(-3px)}
+  .entry .tag{font-size:11px;letter-spacing:3px;color:var(--dim);margin-bottom:14px}
+  .entry h3{font-size:20px;letter-spacing:.16em;color:var(--gold2);margin-bottom:12px}
+  .entry p{font-size:13px;color:var(--muted);line-height:1.95;margin-bottom:16px}
+  .entry .go{font-size:12px;letter-spacing:.2em;color:var(--gold)}
+
+  /* 页脚 */
+  footer{border-top:1px solid var(--line);padding:56px 0 44px;background:var(--bg2)}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-note{font-size:12.5px;color:var(--dim);line-height:2.1;max-width:620px}
+  .foot-note strong{color:#9c9384;font-weight:400}
+  .foot-motto{font-size:14px;letter-spacing:.16em;color:var(--gold);text-align:right}
+  .foot-motto small{display:block;font-size:11px;letter-spacing:2px;color:var(--dim);margin-top:10px}
+
+  @media (max-width:1000px){
+    .concepts{grid-template-columns:1fr}
+    .factions{grid-template-columns:repeat(2,1fr)}
+    .entries{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .wrap,.topbar .inner{padding-left:20px;padding-right:20px}
+    section{padding:60px 0}
+    .factions{grid-template-columns:1fr}
+    .nav{display:none}
+    .foot-motto{text-align:left}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="brand">戈克世界<small>GOK WORLD</small></div>
+    <nav class="nav">
+      <a href="lore.html">世界观</a>
+      <a href="atlas.html">专题地图</a>
+      <a href="ancient.html">古地图</a>
+    </nav>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner wrap">
+    <div class="kicker">伽马射线暴纪年 · 第 1000 年后</div>
+    <h1 class="title">戈克世界</h1>
+    <div class="title-en">G O K &nbsp; W O R L D</div>
+    <p class="lede">
+      2034 年伽马射线暴之后，人类退到南极融冰后露出的陆地。
+      千年以后，他们捡到两样东西：<em>「戈克」</em>和<em>「魔法」</em>。
+      一样是这个世界漏出来的规则，一样是还没被命名的接口。
+    </p>
+    <div class="punch">这个世界打的不是力量，是解释权。</div>
+    <div class="btns">
+      <a class="btn solid" href="lore.html">进入世界观</a>
+      <a class="btn" href="atlas.html">打开地图集</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">T H R E E &nbsp; W O R D S</div>
+      <h2>先弄清三个词</h2>
+      <p class="sec-sub">这三样东西定义了整个世界怎么运转，也定义了每个人的账怎么欠。</p>
+    </div>
+    <div class="concepts">
+      <div class="concept">
+        <div class="num">0 1</div>
+        <h3>戈克</h3>
+        <p>规则的投影。不是矿石，不是电池，是这个世界本身漏出来的东西。总量无限，但流脉经过的地方能采到的永远有限。</p>
+      </div>
+      <div class="concept">
+        <div class="num">0 2</div>
+        <h3>流脉</h3>
+        <p>戈克的脉络。会改道，会衰竭。今年富得流油的矿脉，明年可能干在一百里外。</p>
+      </div>
+      <div class="concept">
+        <div class="num">0 3</div>
+        <h3>魔法</h3>
+        <p>未被命名的规则接口。不是不花钱的力量，是非最优、非安全、非完整的调用。每一次调用，都在欠账。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">S I X &nbsp; P O W E R S</div>
+      <h2>谁在抢</h2>
+      <p class="sec-sub">七个还在的势力，加一个已经沉下去的。世界观回答「世界是什么」，阵营回答「谁在抢」。</p>
+    </div>
+    <div class="factions">
+      <div class="fc">
+        <div class="pic" style="background-image:url(assets/faction_empire.webp)"></div>
+        <div class="body">
+          <h4>帝国</h4>
+          <p>一台必须平账的机器。炉子不能停，账不能红。</p>
+          <div class="motto">神不会给你饭吃，炉子会。</div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="pic" style="background-image:url(assets/faction_republic.webp)"></div>
+        <div class="body">
+          <h4>共和国</h4>
+          <p>七城邦的体面。宁可饿着，也不肯难看。</p>
+          <div class="motto">不体面。</div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="pic" style="background-image:url(assets/faction_greyharbor.webp)"></div>
+        <div class="body">
+          <h4>灰港同盟</h4>
+          <p>国界不承认，账界承认。港口的规矩比法律管用。</p>
+          <div class="motto">名字就是价钱。</div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="pic" style="background-image:url(assets/faction_kset.webp)"></div>
+        <div class="body">
+          <h4>凯斯特学院</h4>
+          <p>混沌中立。它不管谁对谁错，只管别打起来。</p>
+          <div class="motto">谁要打仗，我们先杀谁。</div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="pic crest" style="background-image:url(assets/pus.svg)"></div>
+        <div class="body">
+          <h4>普卫岛</h4>
+          <p>善良中立。劝、提醒、拖，就是不站边。</p>
+          <div class="motto">先问名字。</div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="pic crest" style="background-image:url(assets/xizhao.svg)"></div>
+        <div class="body">
+          <h4>西昭</h4>
+          <p>古堡是历史形态，当代西昭是部落联盟。钥匙还没找回来。</p>
+          <div class="motto">火是拿来听的。</div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="pic" style="background-image:url(assets/faction_losutai.webp)"></div>
+        <div class="body">
+          <h4>洛斯汰</h4>
+          <p>跟着潮汐活着。潮来就活，潮走就等，从不急着上岸。</p>
+          <div class="motto">潮来了，就活。</div>
+        </div>
+      </div>
+      <div class="fc sunk">
+        <div class="pic" style="background-image:url(assets/snow_capital.webp)"></div>
+        <div class="body">
+          <h4>雪都 · 已沉</h4>
+          <p>历史阵营。它的初代领袖叫深雪，人早就不在了，但那句预言还挂在很多人的嘴上。</p>
+          <div class="motto">雪落尽了，雪都就醒了。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">R E A D &nbsp; M O R E</div>
+      <h2>三扇门</h2>
+      <p class="sec-sub">都能直接用浏览器打开，不用装任何东西。</p>
+    </div>
+    <div class="entries">
+      <a class="entry" href="lore.html">
+        <div class="tag">L O R E</div>
+        <h3>世界观介绍</h3>
+        <p>从伽马射线暴讲到六方并立，正史、阵营、人物、还有那条谁都不肯先松手的线。</p>
+        <div class="go">读全文 →</div>
+      </a>
+      <a class="entry" href="atlas.html">
+        <div class="tag">A T L A S</div>
+        <h3>专题地图</h3>
+        <p>六层可切换：地形、势力、航路、城市、历史、生物群系。点一层换一种看世界的方式。</p>
+        <div class="go">打开地图 →</div>
+      </a>
+      <a class="entry" href="ancient.html">
+        <div class="tag">A N C I E N T</div>
+        <h3>古地图</h3>
+        <p>按千年前的口径画的。海岸线和现在不一样，有几座城在那时还不存在。</p>
+        <div class="go">看老版本 →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-note">
+      <strong>创作底线：</strong>不写「没有代价的胜利」，每个人物都得欠点什么，不写完美的人。<br>
+      <strong>关于衍生：</strong>小说与设定是正典，游戏与卡牌是衍生，衍生不反向改写设定。<br>
+      <strong>关于美术：</strong>部分图像为 AI 辅助生成后经人工修整，发布时如实标注。<br>
+      <strong>版权：</strong>世界观与人物设定归作者所有，转载注明出处，商用与二创改编请先联系。
+    </div>
+    <div class="foot-motto">
+      每一条线，都得有人画。
+      <small>戈克世界 · 2026</small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
