@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>雪都路 · 小猫月月</title>
+<meta name="description" content="一座常年下雪的小城，路牌、药店、澡堂和山。66 话、约 33.9 万字的视觉小说，四条结局。">
+<meta property="og:title" content="雪都路">
+<meta property="og:description" content="雪落下来的时候，路牌底下会站着一个人。">
+<meta property="og:image" content="https://nekoruyue.github.io/gok/assets/xuedulu/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<style>
+  :root{
+    --bg:#080b10; --bg2:#0d1218; --bg3:#0a0f15;
+    --line:rgba(217,185,106,.22); --line2:rgba(217,185,106,.12);
+    --gold:#d9b96a; --gold2:#f0d9a0; --gold3:#b79a52;
+    --text:#e8e2d4; --muted:#8b9aa6; --dim:#5c6a76;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;line-height:1.9;overflow-x:hidden}
+  img{display:block;max-width:100%;height:auto}
+  a{color:var(--gold);text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 32px}
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(8,11,16,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line2)}
+  .topbar .inner{max-width:1100px;margin:0 auto;padding:13px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{font-size:15px;letter-spacing:6px;color:var(--gold2);flex:none}
+  .brand small{display:block;font-size:9px;letter-spacing:4px;color:var(--dim);margin-top:2px}
+  .nav{display:flex;gap:20px;font-size:12.5px;letter-spacing:.08em;flex-wrap:wrap}
+  .nav a{color:var(--muted);transition:color .2s;white-space:nowrap}
+  .nav a:hover,.nav a.on{color:var(--gold2)}
+
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url(assets/xuedulu/cg_01_lupai.webp) center/cover no-repeat;opacity:.5;filter:saturate(.62) contrast(1.06)}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,16,.72) 0%,rgba(8,11,16,.34) 44%,var(--bg) 98%)}
+  .hero-inner{position:relative;z-index:2;padding:130px 0 72px}
+  .kicker{font-size:12px;letter-spacing:5px;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .kicker::before{content:"";width:44px;height:1px;background:var(--gold);opacity:.6}
+  h1.title{font-size:clamp(44px,9vw,100px);letter-spacing:.14em;font-weight:600;color:var(--gold2);line-height:1.06;margin-bottom:10px;text-shadow:0 6px 44px rgba(0,0,0,.85)}
+  .title-en{font-size:clamp(11px,1.6vw,13px);letter-spacing:9px;color:var(--dim);margin-bottom:28px}
+  .lede{max-width:640px;font-size:clamp(15px,1.7vw,17.5px);color:#cfc7b6;line-height:2.1;margin-bottom:12px}
+  .lede em{font-style:normal;color:var(--gold)}
+  .stats{display:flex;gap:44px;margin-top:38px;flex-wrap:wrap}
+  .stats div{font-size:12px;letter-spacing:.14em;color:var(--muted)}
+  .stats b{display:block;font-size:30px;letter-spacing:.04em;color:var(--gold2);font-weight:600;margin-bottom:2px}
+
+  section{padding:88px 0;border-top:1px solid var(--line2)}
+  .sec-head{margin-bottom:40px}
+  .sec-en{font-size:10.5px;letter-spacing:6px;color:var(--gold3);margin-bottom:12px}
+  h2{font-size:clamp(24px,3.4vw,34px);letter-spacing:.1em;color:var(--gold2);font-weight:600;margin-bottom:12px}
+  .sec-sub{color:var(--muted);font-size:14.5px;max-width:720px}
+  p{font-size:15px;color:#cfc7b6;line-height:2.05;margin-bottom:14px}
+  p.note{font-size:13px;color:var(--muted)}
+
+  .routes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+  .route{border:1px solid var(--line2);background:var(--bg2);padding:22px 24px;border-radius:2px}
+  .route h3{font-size:16px;color:var(--gold2);letter-spacing:.08em;margin-bottom:6px;font-weight:600}
+  .route .len{font-size:11.5px;letter-spacing:.16em;color:var(--gold3);margin-bottom:10px}
+  .route p{font-size:13.5px;color:var(--muted);margin:0}
+
+  .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .shot{position:relative;border:1px solid var(--line2);overflow:hidden}
+  .shot img{width:100%;transition:transform .6s ease,filter .6s ease;filter:saturate(.92)}
+  .shot:hover img{transform:scale(1.03);filter:saturate(1)}
+  .shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;font-size:12px;letter-spacing:.1em;color:var(--gold2);background:linear-gradient(0deg,rgba(6,9,13,.92),transparent)}
+
+  .get{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
+  .get div{border-left:2px solid var(--gold3);padding:4px 0 4px 16px}
+  .get h4{font-size:14.5px;color:var(--text);letter-spacing:.06em;margin-bottom:4px;font-weight:600}
+  .get p{font-size:13px;color:var(--muted);margin:0}
+  .cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:11px 22px;border:1px solid var(--line);font-size:13px;letter-spacing:.14em;color:var(--gold2);transition:background .2s,color .2s}
+  .btn:hover{background:rgba(217,185,106,.12)}
+  .btn.ghost{color:var(--muted)}
+  .group{font-size:15px;letter-spacing:.18em;color:var(--gold2)}
+
+  footer{border-top:1px solid var(--line2);padding:44px 0 60px;color:var(--dim);font-size:12.5px;letter-spacing:.06em}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--gold2)}
+
+  @media (max-width:820px){
+    .wrap{padding:0 20px}
+    .hero-inner{padding:110px 0 56px}
+    .stats{gap:26px}
+    .routes,.shots,.get{grid-template-columns:1fr}
+    .nav{gap:14px;font-size:12px}
+    section{padding:60px 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="brand">雪都路<small>XUE DU LU</small></div>
+    <nav class="nav">
+      <a href="index.html">戈克世界</a>
+      <a href="xuedulu.html" class="on">雪都路</a>
+      <a href="lore.html">世界观</a>
+      <a href="atlas.html">专题地图</a>
+      <a href="ancient.html">古地图</a>
+      <a href="#games">其他作品</a>
+    </nav>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner wrap">
+    <div class="kicker">小 猫 月 月 · 视 觉 小 说</div>
+    <h1 class="title">雪都路</h1>
+    <div class="title-en">S N O W &nbsp; C A P I T A L &nbsp; R O A D</div>
+    <p class="lede">一座常年下雪的小城。<em>路牌底下站着的人、药店柜台后面的人、澡堂里雾气散开以后的那个人</em>——故事从「尾巴能不能摸」这种小事开始，慢慢走到公示栏、听证会、碑。</p>
+    <p class="lede">不写没有代价的胜利。每个人都要欠点什么。</p>
+    <div class="stats">
+      <div><b>66</b>话</div>
+      <div><b>33.9</b>万字</div>
+      <div><b>4</b>条结局</div>
+      <div><b>3</b>个平台</div>
+    </div>
+  </div>
+</div>
+
+<section id="story">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">T H E &nbsp; S T O R Y</div>
+      <h2>这是什么故事</h2>
+      <p class="sec-sub">两条女主角线，一条共通线，四条结局。没有「全都要」的选项，选谁都要付账。</p>
+    </div>
+    <p>你在一座下雪的小城里落脚。早上七点的路口、柜台上摆着体温计的药店、澡堂门口挂着布帘、山上的路一到大雪就断。深雪在路牌底下等你，蒂娜在柜台后面算账——她们各自有一件不肯说的事，而你要在冬天结束之前，把它们一件一件问出来。</p>
+    <p>故事没有反派。只有一堆各有各的道理的人，和一纸写下来就生效的东西。</p>
+    <p class="note">含成人向描写，但都止于门口，正片不上露骨画面。真结局入口带剧透，建议先把两条女主角线走完。</p>
+  </div>
+</section>
+
+<section id="structure">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">S T R U C T U R E</div>
+      <h2>怎么分线</h2>
+      <p class="sec-sub">共通线把人和地方铺开，两条女主角线各走到底，后日谈负责收尾。</p>
+    </div>
+    <div class="routes">
+      <div class="route">
+        <h3>共通线 + 序章</h3>
+        <div class="len">15 话 · 约 7.4 万字</div>
+        <p>路牌、妹妹、药店、地址查不到、研究生、梳毛、夜班、上山、火锅、澡堂、提蒙的三年、一张照片、灯、公示。</p>
+      </div>
+      <div class="route">
+        <h3>深雪线</h3>
+        <div class="len">20 话 + 后日谈 4 话</div>
+        <p>从「三天」到「碑」，再到「路牌」。她把话说得很少，所以每一句都要接住。</p>
+      </div>
+      <div class="route">
+        <h3>蒂娜线</h3>
+        <div class="len">20 话 + 后日谈 4 话</div>
+        <p>从一封举报信到「新招牌」。她算得清所有的账，除了自己那一笔。</p>
+      </div>
+      <div class="route">
+        <h3>真结局 / 空白</h3>
+        <div class="len">2 话 + 1 话</div>
+        <p>两个名字，写在旁边；以及一条不接任何人的路。走到这里，前面欠的账都要还。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shots">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">S C R E E N S</div>
+      <h2>画面</h2>
+      <p class="sec-sub">背景与 CG 均为 AI 辅助生成 + 人工修整，封面图之后又统一压过一遍冷调。</p>
+    </div>
+    <div class="shots">
+      <figure class="shot"><img src="assets/xuedulu/cg_01_lupai.webp" alt="路牌底下的雪夜" width="1920" height="1080" loading="lazy"><figcaption>路牌底下 · 共通01</figcaption></figure>
+      <figure class="shot"><img src="assets/xuedulu/cg_10_taiyang.webp" alt="太阳出来的时候" width="1920" height="1080" loading="lazy"><figcaption>太阳 · 深雪线</figcaption></figure>
+      <figure class="shot"><img src="assets/xuedulu/cg_06_stairs.webp" alt="楼道的台阶" width="1920" height="1080" loading="lazy"><figcaption>台阶 · 夜里的楼道</figcaption></figure>
+      <figure class="shot"><img src="assets/xuedulu/cg_17_shanlu.webp" alt="上山的路" width="1920" height="1080" loading="lazy"><figcaption>山路 · 大雪封路之前</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="games">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-en">H O W &nbsp; T O &nbsp; G E T</div>
+      <h2>在哪玩、怎么拿</h2>
+      <p class="sec-sub">都还没上架商店。想玩直接进群说一句，作者会给能跑的那一份。</p>
+    </div>
+    <div class="get">
+      <div><h4>Windows 电脑版</h4><p>便携版，双击就开，不用安装。</p></div>
+      <div><h4>安卓版</h4><p>APK 直接装，横屏，自带存档。</p></div>
+      <div><h4>网页版</h4><p>纯静态站点，扔到任何静态托管都能跑。</p></div>
+    </div>
+    <div class="cta">
+      <span class="group">反馈群 1132308724</span>
+      <a class="btn" href="index.html#join">去戈克世界的群入口 →</a>
+      <a class="btn ghost" href="index.html">看看同一位作者的其他作品 →</a>
+    </div>
+    <p class="note" style="margin-top:22px">遇到 bug、错字、觉得哪句写得不对，都能说。说的时候带上设备、哪一话、大概哪一句，能截图最好。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="font-size:12.5px;color:var(--dim);margin-bottom:10px">《雪都路》· 小猫月月（nekoruyue）· 剧本、分线、素材取舍均由作者本人决定</p>
+    <p style="font-size:12.5px;color:var(--dim)">美术资产为 AI 辅助生成 + 人工修整。世界观与人物设定版权归作者，转载注明出处；商用与二创改编请先联系。</p>
+    <p style="margin-top:16px"><a href="index.html">← 回戈克世界</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
