@@ -60,6 +60,7 @@
   .sec-en{font-size:11px;letter-spacing:5px;color:var(--dim);margin-bottom:12px}
   h2{font-size:clamp(26px,3.6vw,40px);letter-spacing:.1em;color:var(--gold2);font-weight:600;margin-bottom:14px}
   .sec-sub{color:var(--muted);font-size:14px;letter-spacing:.08em;line-height:1.95}
+  .sec-note{margin-top:16px;font-size:12.5px;color:var(--dim);letter-spacing:.04em;line-height:1.9;padding-left:12px;border-left:2px solid rgba(217,185,106,.3)}
   .alt{background:var(--bg2)}
 
   /* 三个词 */
@@ -83,6 +84,13 @@
   .fc.sunk .pic{filter:grayscale(.62) brightness(.5)}
   .fc.sunk h4{color:var(--dim)}
   .fc.sunk .motto{color:var(--dim);border-top-color:rgba(140,150,160,.14)}
+  .fc h4 .tk{
+    display:inline-block;font-size:9.5px;letter-spacing:.12em;font-weight:400;
+    padding:1px 6px;margin-left:8px;vertical-align:2px;
+    color:var(--gold3);border:1px solid rgba(217,185,106,.35);
+  }
+  .fc h4 .tk.other{color:#8b9aa6;border-color:rgba(139,154,166,.32)}
+  .fc h4 .tk.dead{color:var(--dim);border-color:rgba(140,150,160,.2)}
 
   /* 七代号 */
   .codes{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
@@ -123,6 +131,12 @@
   .st.play{color:#8fbc8a;border-color:rgba(143,188,138,.4);background:rgba(143,188,138,.07)}
   .st.wip{color:var(--gold);border-color:rgba(217,185,106,.4);background:rgba(217,185,106,.07)}
   .st.proto{color:#8b9aa6;border-color:rgba(139,154,166,.35);background:rgba(139,154,166,.06)}
+  .play-btn{
+    display:inline-block;margin-left:10px;font-size:11px;letter-spacing:.14em;
+    padding:3px 13px;border:1px solid var(--gold);
+    color:#0a0d12;background:var(--gold);transition:all .22s;vertical-align:middle;
+  }
+  .play-btn:hover{background:var(--gold2);border-color:var(--gold2);color:#0a0d12}
   .prod .note{font-size:11px;color:var(--dim);margin-top:10px;line-height:1.8}
 
   /* 小说 */
@@ -161,6 +175,18 @@
   .want h4{font-size:15px;letter-spacing:.16em;color:var(--gold2);margin-bottom:12px}
   .want p{font-size:12.5px;color:var(--muted);line-height:1.95}
   .want em{font-style:normal;color:var(--gold)}
+
+  /* 作者 */
+  .author{display:grid;grid-template-columns:1.4fr .6fr;gap:56px;align-items:start}
+  .au-text p{font-size:14.5px;color:#c2bcae;line-height:2.15;margin-bottom:18px}
+  .au-text p:last-of-type{margin-bottom:0}
+  .au-sign{margin-top:32px;padding-top:22px;border-top:1px solid var(--line2);font-size:15px;letter-spacing:.14em;color:var(--gold2)}
+  .au-sign small{display:block;font-size:11.5px;letter-spacing:.1em;color:var(--dim);margin-top:8px}
+  .au-meta{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line2)}
+  .au-stat{background:var(--bg3);padding:22px 18px}
+  .au-stat b{display:block;font-size:26px;color:var(--gold);font-weight:400;line-height:1.2}
+  .au-stat b i{font-style:normal;font-size:12px;color:var(--muted);margin-left:3px}
+  .au-stat span{display:block;font-size:11.5px;color:var(--dim);margin-top:5px;letter-spacing:.08em}
 
   /* FAQ */
   .faq{max-width:900px}
@@ -239,6 +265,7 @@
   <div class="inner">
     <div class="brand">戈克世界<small>GOK WORLD</small></div>
     <nav class="nav">
+      <a href="demo/defense/">试玩</a>
       <a href="#factions">阵营</a>
       <a href="#codes">七代号</a>
       <a href="#shots">画面</a>
@@ -265,7 +292,8 @@
     </p>
     <div class="punch">这个世界打的不是力量，是解释权。</div>
     <div class="btns">
-      <a class="btn solid" href="lore.html">进入世界观</a>
+      <a class="btn solid" href="demo/defense/">直接试玩</a>
+      <a class="btn" href="lore.html">进入世界观</a>
       <a class="btn" href="#shots">先看画面</a>
       <a class="btn" href="#join">加入交流群</a>
     </div>
@@ -313,25 +341,25 @@
     <div class="sec-head">
       <div class="sec-en">S I X &nbsp; P O W E R S</div>
       <h2>谁在抢</h2>
-      <p class="sec-sub">七个还在的势力，加一个已经沉下去的。世界观回答「世界是什么」，阵营回答「谁在抢」。</p>
+      <p class="sec-sub">六方并立。另外还有一个独立的潮汐聚落，和一个已经沉下去的历史阵营。世界观回答「世界是什么」，阵营回答「谁在抢」。</p>
     </div>
     <div class="factions">
       <div class="fc"><div class="pic" style="background-image:url(assets/faction_empire.webp)"></div>
-        <div class="body"><h4>帝国</h4><p>一台必须平账的机器。炉子不能停，账不能红。</p><div class="motto">神不会给你饭吃，炉子会。</div></div></div>
+        <div class="body"><h4>帝国<span class="tk">六方</span></h4><p>一台必须平账的机器。炉子不能停，账不能红。</p><div class="motto">神不会给你饭吃，炉子会。</div></div></div>
       <div class="fc"><div class="pic" style="background-image:url(assets/faction_republic.webp)"></div>
-        <div class="body"><h4>共和国</h4><p>七城邦的体面。宁可饿着，也不肯难看。</p><div class="motto">不体面。</div></div></div>
+        <div class="body"><h4>共和国<span class="tk">六方</span></h4><p>七城邦的体面。宁可饿着，也不肯难看。</p><div class="motto">不体面。</div></div></div>
       <div class="fc"><div class="pic" style="background-image:url(assets/faction_greyharbor.webp)"></div>
-        <div class="body"><h4>灰港同盟</h4><p>国界不承认，账界承认。港口的规矩比法律管用。</p><div class="motto">名字就是价钱。</div></div></div>
+        <div class="body"><h4>灰港同盟<span class="tk">六方</span></h4><p>国界不承认，账界承认。港口的规矩比法律管用。</p><div class="motto">名字就是价钱。</div></div></div>
       <div class="fc"><div class="pic" style="background-image:url(assets/faction_kset.webp)"></div>
-        <div class="body"><h4>凯斯特学院</h4><p>混沌中立。它不管谁对谁错，只管别打起来。</p><div class="motto">谁要打仗，我们先杀谁。</div></div></div>
+        <div class="body"><h4>凯斯特学院<span class="tk">六方</span></h4><p>混沌中立。它不管谁对谁错，只管别打起来。</p><div class="motto">谁要打仗，我们先杀谁。</div></div></div>
       <div class="fc"><div class="pic crest" style="background-image:url(assets/pus.svg)"></div>
-        <div class="body"><h4>普卫岛</h4><p>善良中立。劝、提醒、拖，就是不站边。</p><div class="motto">先问名字。</div></div></div>
+        <div class="body"><h4>普卫岛<span class="tk">六方</span></h4><p>善良中立。劝、提醒、拖，就是不站边。</p><div class="motto">先问名字。</div></div></div>
       <div class="fc"><div class="pic crest" style="background-image:url(assets/xizhao.svg)"></div>
-        <div class="body"><h4>西昭</h4><p>古堡是历史形态，当代西昭是部落联盟。钥匙还没找回来。</p><div class="motto">火是拿来听的。</div></div></div>
+        <div class="body"><h4>西昭<span class="tk">六方</span></h4><p>当代西昭是部落联盟。它和千年前那座西昭古堡不是同一个势力，只是继承了同一个名字。</p><div class="motto">火是拿来听的。</div></div></div>
       <div class="fc"><div class="pic" style="background-image:url(assets/faction_losutai.webp)"></div>
-        <div class="body"><h4>洛斯汰</h4><p>跟着潮汐活着。潮来就活，潮走就等，从不急着上岸。</p><div class="motto">潮来了，就活。</div></div></div>
+        <div class="body"><h4>洛斯汰<span class="tk other">独立聚落</span></h4><p>跟着潮汐活着的聚落，不属于任何一方。曾与西昭结盟，那道盟约现在快撑不住了。</p><div class="motto">潮来了，就活。</div></div></div>
       <div class="fc sunk"><div class="pic" style="background-image:url(assets/snow_capital.webp)"></div>
-        <div class="body"><h4>雪都 · 已沉</h4><p>历史阵营。它的初代领袖叫深雪，人早就不在了，但那句预言还挂在很多人的嘴上。</p><div class="motto">雪落尽了，雪都就醒了。</div></div></div>
+        <div class="body"><h4>雪都<span class="tk dead">已沉</span></h4><p>历史阵营。它的初代领袖叫深雪，人早就不在了，但那句预言还挂在很多人的嘴上。</p><div class="motto">雪落尽了，雪都就醒了。</div></div></div>
     </div>
   </div>
 </section>
@@ -424,6 +452,7 @@
       <div class="sec-en">S E V E N &nbsp; W O R K S</div>
       <h2>七款可玩的东西</h2>
       <p class="sec-sub">都还没上过平台。有的能直接玩，有的还在打样，反正一分钱没收过。</p>
+      <p class="sec-note">提醒一句：游戏为了好玩，有几款的背景是架空的，跟正典设定不完全一致。哪一款不一样、怎么不一样，每张卡下面都写了。</p>
     </div>
     <div class="products">
       <div class="prod"><div class="no">01</div><div>
@@ -446,7 +475,7 @@
         <h3>戈克世界：流脉防线</h3>
         <div class="type">单机 2D 即时塔防 · 网格部署 + 轻叙事 + 战后案卷</div>
         <div class="tagline">守完一关不算完，还得写一份事后报告。报告怎么写，人就怎么活。</div>
-        <div class="st proto">2 关可玩原型</div>
+        <div class="st proto">2 关可玩原型</div><a class="play-btn" href="demo/defense/">试玩 →</a>
         <div class="note">设计案 15.5 万字，目前只有两关跑通。</div>
       </div></div>
 
@@ -462,8 +491,8 @@
         <h3>鹿铃亭</h3>
         <div class="type">经营模拟 · 安卓</div>
         <div class="tagline">一间店，一天分几段，客人走了账还在。</div>
-        <div class="st play">0.5.6 · APK</div>
-        <div class="note">像素风，正在补美术与交互手感。</div>
+        <div class="st play">0.5.6 · APK</div><a class="play-btn" href="demo/play-luling.html">试玩 →</a>
+        <div class="note">网页版和安卓版内容一致，横屏玩。</div>
       </div></div>
 
       <div class="prod"><div class="no">06</div><div>
@@ -600,6 +629,28 @@
       <div class="want"><h4>发行 / 上架</h4><p>七款产品都 <em>没上过任何平台</em>。缺经验，也缺渠道，愿意一起学的也行。</p></div>
       <div class="want"><h4>二创 / 联动</h4><p>同人、跑团模组、联名都能谈。设定给得开，只要不反向改正典。</p></div>
     </div>
+
+    <div style="margin-top:78px;padding-top:56px;border-top:1px solid var(--line)">
+      <div class="sec-head" style="margin-bottom:34px">
+        <div class="sec-en">W H O &nbsp; M A D E &nbsp; T H I S</div>
+        <h2 style="font-size:clamp(22px,2.6vw,30px)">一个人做的</h2>
+      </div>
+      <div class="author">
+        <div class="au-text">
+          <p>没有团队，没有立项，也没有发行商。设定、正史、四十八位角色档案、三章正文加二十一篇人物篇、三十六位角色的精二立绘、七款游戏，还有你现在翻的这一页，全是同一个人做的。</p>
+          <p>七款产品都还没上过任何平台。做出来就放出来，放出来接着做下一个。</p>
+          <p>写这个世界只有一条原则：不写「没有代价的胜利」。每个人物都得欠点什么，不写完美的人。</p>
+          <p>如果你也在写东西、画画、配音，或者只是想找个人聊聊设定，群里随时可以说话。</p>
+          <div class="au-sign">小猫月月<small>B 站：希斯蒂娜Shextina</small></div>
+        </div>
+        <div class="au-meta">
+          <div class="au-stat"><b>48</b><span>角色档案</span></div>
+          <div class="au-stat"><b>27.4<i>万字</i></b><span>小说正文</span></div>
+          <div class="au-stat"><b>7</b><span>款游戏</span></div>
+          <div class="au-stat"><b>1</b><span>个人</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -626,7 +677,7 @@
       </details>
       <details>
         <summary>为什么一会儿说六方，一会儿说八阵营？</summary>
-        <p>六方是正典里的现役势力。卡牌里的「八阵营」是把已沉的雪都和洛斯汰也各算了一方，扩出来的游戏玩法口径，不是设定改了口。本页面上写的是「七个还在的势力，加一个已经沉下去的」，这个说法两边都不冲突。</p>
+        <p>世界观里就是六方：帝国、共和国、灰港同盟、普卫岛、凯斯特学院、西昭。卡牌为了玩法平衡，把独立的洛斯汰聚落和已经沉下去的雪都也各算了一方，凑成八阵营。牌桌上的分法而已，不是设定改了口。</p>
       </details>
       <details>
         <summary>美术是 AI 画的吗？</summary>

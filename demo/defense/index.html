@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>流脉防线 · 戈克世界</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- 标题 -->
+  <section id="screen-title" class="screen active">
+    <div class="title-bg"></div>
+    <div class="title-left">
+      <div class="kicker">普卫岛 · 协调部 · 窗口复演</div>
+      <h1>流脉<span>防线</span></h1>
+      <div class="title-en">GOK WORLD : VEIN LINE</div>
+      <p class="title-pitch">每一条线，都得有人画。</p>
+      <p class="title-sub">13×7 的岛上，你只有一条流脉、一段时间、<br>和七个能被派出去的人。</p>
+      <div class="title-actions">
+        <button id="btn-start" class="btn primary">开始值班</button>
+        <button id="btn-auth" class="btn ghost">授权表</button>
+        <button id="btn-rules" class="btn ghost">怎么看</button>
+      </div>
+      <div class="title-meta">
+        <span>案卷</span>
+        <b id="meta-truth">真值 0</b><b id="meta-order">秩序 0</b><b id="meta-seal">隐秘 0</b>
+      </div>
+    </div>
+    <div class="title-right">
+      <div class="title-portrait">
+        <img src="assets/units/莱恩.webp" alt="莱恩">
+        <div class="portrait-caption"><b>莱恩·科斯特「序」</b><span>高级协调者 · 他不打，他决定谁先撤</span></div>
+      </div>
+      <div class="title-cards">
+        <div class="mini-card"><img src="assets/units/艾德里克.webp" alt=""><span>衡</span></div>
+        <div class="mini-card"><img src="assets/units/希斯蒂娜.webp" alt=""><span>镜</span></div>
+        <div class="mini-card"><img src="assets/units/提蒙.webp" alt=""><span>瞬</span></div>
+        <div class="mini-card"><img src="assets/units/维里欧斯.webp" alt=""><span>锲</span></div>
+      </div>
+      <div class="title-stamp">复演<br><small>非正史</small></div>
+    </div>
+  </section>
+
+  <!-- 选关 -->
+  <section id="screen-select" class="screen">
+    <header class="select-head">
+      <div>
+        <div class="kicker">协调部 · 值班室</div>
+        <h2>窗口表</h2>
+      </div>
+      <div class="select-meta">
+        <span>案卷 <b id="meta-truth-2">真值 0</b> / <b id="meta-order-2">秩序 0</b> / <b id="meta-seal-2">隐秘 0</b></span>
+        <button id="btn-back-title" class="btn ghost small">回值班室</button>
+      </div>
+    </header>
+    <div id="stage-list"></div>
+    <div class="select-tips">
+      <div><b>接入</b><span>点值守 → 点格子 → 选朝向</span></div>
+      <div><b>窗口</b><span>秒是货币：强接 −8 / 改道 −15</span></div>
+      <div><b>案卷</b><span>打完三选一，选的是解释权</span></div>
+    </div>
+    <div class="select-foot">窗口复演 · 结果不进正史，但会被六部门读到。 · v0.1 原型</div>
+  </section>
+
+  <!-- 战斗 -->
+  <section id="screen-battle" class="screen">
+    <header id="topbar">
+      <div class="top-left">
+        <div class="stage-code" id="stage-code">序-1</div>
+        <div class="stage-title" id="stage-title">值班表</div>
+        <div class="stage-sub">窗口复演 · T-0000</div>
+      </div>
+      <div class="top-center">
+        <div id="timer">03:00</div>
+        <div class="timer-sub">
+          <span id="timer-label">窗口</span>
+          <div class="window-bar"><i id="window-fill"></i></div>
+        </div>
+      </div>
+      <div class="top-right">
+        <div id="instability" class="meter hidden">
+          <span>失稳</span><div class="meter-bar"><i id="instability-fill"></i></div><b id="instability-num">0</b>
+        </div>
+        <button id="btn-pause" class="icon-btn" title="暂停（Space）">Ⅱ</button>
+        <button id="btn-speed" class="icon-btn" title="倍速">1×</button>
+        <button id="btn-sound" class="icon-btn" title="声音">♪</button>
+        <button id="btn-help" class="icon-btn" title="规则">?</button>
+      </div>
+    </header>
+
+    <div id="stage-body">
+      <aside id="roster">
+        <div class="panel-title">值守编组 <span id="roster-count">3/3</span></div>
+        <div id="cards"></div>
+        <div class="roster-note" id="roster-note">接入不消耗“能量”，只占通道带宽。撤除返还 30%。</div>
+        <div class="legend">
+          <span><i class="dot ground"></i>地面</span>
+          <span><i class="dot platform"></i>台面</span>
+          <span><i class="dot vein"></i>脉点</span>
+          <span><i class="dot gate"></i>脉闸</span>
+        </div>
+      </aside>
+
+      <main id="board-wrap">
+        <canvas id="board"></canvas>
+        <div id="board-top">
+          <div id="star-chips"></div>
+          <div id="objective-chip">目标</div>
+        </div>
+        <div id="guide" class="hidden"></div>
+        <div id="toast"></div>
+        <div id="tooltip"></div>
+        <div id="deploy-hint" class="hidden">选择朝向</div>
+      </main>
+    </div>
+
+    <footer id="bottombar">
+      <div id="quota-panel">
+        <div class="quota-label">配额 <span id="quota-rate">+0.9/s</span></div>
+        <div class="quota-value"><b id="quota-num">18</b><span>/99</span></div>
+        <div class="quota-bar"><i id="quota-fill"></i></div>
+        <div class="upkeep-line" id="upkeep-line"></div>
+      </div>
+      <div id="actions">
+        <div id="action-empty">点左侧值守 → 点格子 → 选朝向</div>
+      </div>
+      <div id="command-panel">
+        <div class="panel-title">指挥「协调」</div>
+        <div id="command-buttons"></div>
+      </div>
+    </footer>
+  </section>
+
+  <div id="modal" class="hidden"><div id="modal-card"></div></div>
+</div>
+
+<div id="grain"></div>
+<div id="vignette"></div>
+
+<script src="data.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

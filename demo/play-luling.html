@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<title>鹿铃亭 · 试玩 · 戈克世界</title>
+<style>
+  :root{
+    --bg:#080b10; --bg2:#0d1218; --line:rgba(217,185,106,.22); --line2:rgba(217,185,106,.12);
+    --gold:#d9b96a; --gold2:#f0d9a0; --text:#e8e2d4; --muted:#8b9aa6; --dim:#5c6a76;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--text);min-height:100vh;
+    font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;
+    display:flex;flex-direction:column;align-items:center;
+    padding:28px 20px 40px;
+  }
+  .bar{
+    width:100%;max-width:980px;display:flex;align-items:center;justify-content:space-between;
+    gap:20px;flex-wrap:wrap;margin-bottom:22px;
+    padding-bottom:18px;border-bottom:1px solid var(--line2);
+  }
+  .bar h1{font-size:16px;letter-spacing:.18em;color:var(--gold2);font-weight:400}
+  .bar h1 small{display:block;font-size:11px;letter-spacing:.1em;color:var(--dim);margin-top:6px}
+  .bar a{
+    font-size:12px;letter-spacing:.16em;color:var(--gold);
+    border:1px solid var(--line);padding:8px 20px;transition:all .25s;
+  }
+  .bar a:hover{background:rgba(217,185,106,.1);border-color:var(--gold)}
+
+  .frame{
+    position:relative;
+    width:820px;height:390px;max-width:100%;
+    border:10px solid #1b222c;border-radius:26px;
+    box-shadow:0 24px 70px rgba(0,0,0,.7),0 0 0 1px var(--line2);
+    background:#000;overflow:hidden;flex:none;
+  }
+  .frame::before{display:none}
+  .frame iframe{width:100%;height:100%;border:0;display:block}
+
+  .tip{
+    margin-top:26px;font-size:12.5px;color:var(--dim);letter-spacing:.05em;
+    line-height:1.95;text-align:center;max-width:620px;
+  }
+  .tip b{color:var(--muted);font-weight:400}
+  .tip a{color:var(--gold);border-bottom:1px solid var(--line)}
+
+  @media (max-width:900px){
+    .frame{width:100%;height:auto;aspect-ratio:820/390;border-width:6px;border-radius:16px}
+  }
+  @media (max-width:560px){
+    body{padding:16px 12px 30px}
+    .bar{margin-bottom:16px;padding-bottom:14px}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>戈克世界 · 鹿铃亭<small>WEB 版试玩 · 和安卓版内容一致</small></h1>
+  <a href="../index.html#games">← 回官网</a>
+</div>
+
+<div class="frame">
+  <iframe src="luling/index.html" title="鹿铃亭 试玩" allow="autoplay; fullscreen"></iframe>
+</div>
+
+<p class="tip">
+  这一款是横屏玩的，手机横过来就是全屏，桌面上直接点。<br>
+  <b>这是 0.5.6 版，还在补美术和手感，玩到卡住不算你操作的问题。</b>
+  玩完想反馈，<a href="../index.html#join">进群说</a>。
+</p>
+
+</body>
+</html>
