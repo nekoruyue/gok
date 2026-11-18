@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>戈克公报 · 帝国历 480 年三月</title>
+<meta name="description" content="一份发生在戈克世界里的公告栏。同一批事，六方各有一个说法——帝国的版、共和国的三读、灰港的账、凯斯特的编号、西昭的火、洛斯汰的潮。">
+<meta property="og:title" content="戈克公报">
+<meta property="og:description" content="同一件事，六方六种说法。谁先登记，谁就赢了。">
+<meta property="og:image" content="https://nekoruyue.github.io/gok/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="article">
+<style>
+  :root{
+    --gold:#d9b96a; --gold2:#f0d9a0;
+    --ink:#1f1a12; --ink2:#43382a; --ink3:#6f6350;
+    --paper:#e7ddc4;
+    --seal:#9c3327;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:#0b0906;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.012) 0 2px, transparent 2px 9px),
+      radial-gradient(120% 90% at 50% -10%, #1b150e 0%, #0b0906 72%);
+    color:#e8e2d4;
+    font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 90px;
+  }
+  a{color:var(--gold);text-decoration:none}
+  a:hover{color:var(--gold2)}
+
+  /* 顶部导航 */
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(8,11,16,.9);
+    backdrop-filter:blur(10px);border-bottom:1px solid rgba(217,185,106,.14)}
+  .nav{max-width:1000px;margin:0 auto;padding:11px 22px;display:flex;gap:18px;
+    flex-wrap:wrap;font-size:13px;letter-spacing:.06em}
+  .nav a{color:#8b9aa6}
+  .nav a.on{color:var(--gold)}
+
+  .sheetwrap{max-width:1000px;margin:0 auto;padding:0 18px}
+
+  /* 一张报纸 */
+  .paper{
+    position:relative;background:var(--paper);color:var(--ink);
+    margin-top:46px;padding:42px 46px 40px;
+    transform:rotate(-.22deg);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.35) inset,
+      0 34px 80px rgba(0,0,0,.7),
+      0 4px 12px rgba(0,0,0,.5);
+  }
+  .paper::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.9;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/><feColorMatrix type='saturate' values='0'/></filter><rect width='240' height='240' filter='url(%23p)' opacity='0.3'/></svg>");
+    mix-blend-mode:multiply;
+  }
+  .paper::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(130% 100% at 50% 45%, transparent 58%, rgba(60,42,18,.2) 100%);
+  }
+
+  /* 报头 */
+  .masthead{position:relative;z-index:2;text-align:center;padding-bottom:12px}
+  .mh-top{display:flex;justify-content:space-between;font-size:11.5px;
+    letter-spacing:.2em;color:var(--ink3);padding-bottom:10px;padding-right:104px}
+  .masthead h1{font-size:clamp(34px,5.6vw,56px);letter-spacing:.26em;font-weight:600;
+    line-height:1.12;margin:4px 0 8px;color:#14100a}
+  .mh-en{font-size:11px;letter-spacing:.55em;color:var(--ink3);margin-bottom:12px}
+  .mh-rule{border-top:3px double #2a2318;border-bottom:1px solid #2a2318;
+    height:5px;margin-bottom:10px}
+  .mh-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:12px;letter-spacing:.14em;color:var(--ink2);padding-bottom:12px;
+    border-bottom:1px solid #2a2318}
+
+  /* 报头印章 */
+  .seal{
+    position:absolute;right:-24px;top:10px;width:90px;height:90px;border-radius:50%;
+    border:2.5px solid var(--seal);color:var(--seal);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    font-size:11.5px;line-height:1.25;letter-spacing:.16em;text-align:center;
+    transform:rotate(-12deg);opacity:.78;mix-blend-mode:multiply;
+    box-shadow:0 0 0 1px rgba(156,51,39,.22) inset;
+  }
+  .seal b{font-size:13px;font-weight:600;letter-spacing:.08em}
+
+  /* 导语 + 要目 */
+  .lede{position:relative;z-index:2;display:grid;grid-template-columns:1fr 244px;gap:30px;
+    padding:20px 0 18px;border-bottom:1px solid rgba(42,35,24,.35)}
+  .lede p{font-size:15.5px;line-height:2;color:var(--ink2);text-align:justify}
+  .lede p+p{margin-top:7px}
+  .lede em{font-style:normal;color:#7d2a1e}
+  .box{border:1px solid #2a2318;padding:12px 14px;align-self:start}
+  .box .bt{font-size:11.5px;letter-spacing:.24em;color:var(--ink3);
+    border-bottom:1px solid rgba(42,35,24,.35);padding-bottom:7px;margin-bottom:9px}
+  .box ul{list-style:none}
+  .box li{font-size:13.5px;line-height:1.9;color:var(--ink2);
+    padding-left:12px;position:relative}
+  .box li::before{content:"·";position:absolute;left:2px;color:var(--ink3)}
+
+  /* 正文分栏 */
+  .cols{position:relative;z-index:2;column-count:2;column-gap:42px;
+    column-rule:1px solid rgba(42,35,24,.26);padding-top:20px}
+  .art{break-inside:avoid-column;margin-bottom:24px;padding-bottom:22px;
+    border-bottom:1px solid rgba(42,35,24,.22)}
+  .art.pull{margin-bottom:26px;padding-bottom:24px;
+    border-bottom:3px double rgba(42,35,24,.5);column-span:all}
+  .a-meta{font-size:12px;letter-spacing:.12em;color:var(--ink3);margin-bottom:6px}
+  .art h3{font-size:21.5px;font-weight:600;letter-spacing:.08em;line-height:1.5;
+    margin-bottom:10px;color:#14100a}
+  .art h2{font-size:33px;font-weight:600;letter-spacing:.16em;line-height:1.35;
+    margin-bottom:12px;color:#14100a}
+  .art.pull .lead{font-size:17px;line-height:2.1;color:#2a2318;text-align:justify;
+    max-width:760px}
+  .body{font-size:15.5px;line-height:2.05;color:#2a2318;text-align:justify}
+  .body.q{font-size:16px}
+  .body.sm{font-size:14px;color:var(--ink3);margin-top:7px}
+  .note{margin-top:10px;font-size:14.5px;line-height:1.92;color:var(--ink2);
+    font-family:"KaiTi","STKaiti","FangSong",serif}
+  .note .w{color:#7d2a1e;letter-spacing:.08em;margin-right:6px}
+  .sign{margin-top:9px;font-size:12.5px;color:var(--ink3);letter-spacing:.06em;
+    text-align:right}
+
+  /* 报脚 */
+  .pf{position:relative;z-index:2;margin-top:22px;border-top:3px double #2a2318;
+    padding-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:11.5px;letter-spacing:.12em;color:var(--ink3)}
+  .pf a{color:#7d2a1e}
+
+  @media(max-width:820px){
+    .paper{padding:26px 20px 28px;margin-top:26px}
+    .cols{column-count:1}
+    .lede{grid-template-columns:1fr;gap:18px}
+    .seal{display:none}
+    .mh-top{padding-right:0;gap:8px;font-size:10.5px;letter-spacing:.12em}
+    .art h2{font-size:26px}
+    .art.pull .lead{font-size:15.5px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <nav class="nav">
+    <a href="index.html">戈克世界</a>
+    <a href="bulletin.html" class="on">公报</a>
+    <a href="lore.html">世界观</a>
+    <a href="atlas.html">专题地图</a>
+    <a href="ancient.html">古地图</a>
+    <a href="xuedulu.html">雪都路</a>
+  </nav>
+</div>
+
+<div class="sheetwrap">
+<article class="paper">
+
+  <header class="masthead">
+    <div class="seal"><span>铁序城</span><b>官刻局</b><span>第十五版</span></div>
+    <div class="mh-top"><span>铁序城 · 官刻局</span><span>一年六十版 · 本版第十五</span></div>
+    <h1>戈克公报</h1>
+    <div class="mh-en">G O K &nbsp; B U L L E T I N</div>
+    <div class="mh-rule"></div>
+    <div class="mh-meta">
+      <span>帝国历 480 年（人类历 4363 年）三月</span>
+      <span>节气：解冰之后 · 柳醒之前</span>
+      <span>每份 8.8 铜</span>
+    </div>
+  </header>
+
+  <section class="lede">
+    <div>
+      <p>同一批事，六方各有一个说法。帝国刻版，共和国三读，灰港记账，凯斯特编号，西昭听火，洛斯汰听潮——他们不写，但别人会替他们记一笔。</p>
+      <p>没人撒谎——他们只是各自用自己的方式，把这件事写了一遍。所以每条底下都有别人的说法；那不是注释，是另一处、另一些人、另一种办法。</p>
+      <p>这个世界的信息不是被谁扣下的，是走路走没的。铁序城到格洛克要走三十三天；公告刻一版要六个工日，改一个字要一银；印满五百份要九天，而九天里事早就变了。所以官方文字只肯写<em>不会变的东西</em>——律条、税率、赏格、禁令、人名。至于为什么和多少，永远在嘴上传。</p>
+    </div>
+    <div class="box">
+      <div class="bt">本 期 要 目</div>
+      <ul>
+        <li>封存：编号保留，正文不公开</li>
+        <li>清算日：认账，或认冒名</li>
+        <li>潮边设站，名单第一人</li>
+        <li>听证席开，答四个字</li>
+        <li>火说时候到了</li>
+        <li>旧档调阅，册不在外</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cols">
+
+    <section class="art pull">
+      <div class="a-meta">凯斯特学院部 · 档案室 · 三月廿九日</div>
+      <h2>封 存</h2>
+      <p class="lead">此条已按规程删节。编号保留，正文不予公开。三位召集人各持一钥，柜门未启。记录上留了一行铅笔字——「此条存疑，待核。」署名处是空的。外人看见的是编号。编号说明这件事被记过；至于记的是什么，没人有权知道，包括记它的人。</p>
+      <div class="sign">本条是三月最后一条。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">灰港同盟 · 账房 · 三月廿六日</div>
+      <h3>清 算 日</h3>
+      <p class="body q">「今日平账。西昭所欠，二者择一：认账，或认冒名。认账则记息，认冒名则此事与西昭无关，另寻冒名者。」</p>
+      <p class="body sm">模板上只刻了这两行，名字后面填。</p>
+      <p class="note"><span class="w">西昭</span>火没变。血偿照旧——扣信的人当成被扣了人，找得到就找，找不到就等下一次火。</p>
+      <p class="note"><span class="w">共和国</span>没有表态。议会那份案子还在第二读，第二读可以吵三个月。</p>
+      <p class="note"><span class="w">盘口</span>东线的船期先涨了一档。账比公告快，因为账不必等谁签字。</p>
+      <div class="sign">平账日，六日一轮的第六日。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">潮边 · 观测站 · 三月廿四日</div>
+      <h3>设 站</h3>
+      <p class="body">潮边设观测站一处。观测者三人，署名，日期照记。名单另附。</p>
+      <p class="note"><span class="w">科研部</span>名单上第一个名字是澜礁。理由一栏写着「配合观测」。</p>
+      <p class="note"><span class="w">潮听</span>澜听公开反对。原话很短——「潮不卖人。」</p>
+      <p class="note"><span class="w">洛斯汰</span>这一方从不产出文书。潮没有在这件事上说话，所以对他们来说，它还没有发生。</p>
+      <div class="sign">记录它，别解释它。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">格洛克 · 边境听证席 · 三月廿二日</div>
+      <h3>听 证 席 开</h3>
+      <p class="body q">「边境听证席已开。技术代表列席。问答记录，依三读程序另行公布。」</p>
+      <p class="body sm">三读是拟稿一读、议会二读、宣读三读。过了才动刀——刻了就是定了，定了就不能再说没说过。所以这份记录现在还不存在。</p>
+      <p class="note"><span class="w">席上</span>三百个编号坐在听席第一排，没有名字牌，只有号。第一个问题问得很轻——「当年抓了多少人。」</p>
+      <p class="note"><span class="w">帝国</span>技术代表答了四个字，「依额征调」。再多一句也没有。</p>
+      <p class="note"><span class="w">灰港</span>没人在席上。但这一排的听席票，是从账上挂出去的。</p>
+      <div class="sign">公告只写不变的事，所以这句话里没有数字。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">西昭 · 大萨满 · 三月二十日</div>
+      <h3>火 说 时 候 到 了</h3>
+      <p class="body q">「火说时候到了。」</p>
+      <p class="body sm">没有日期，没有数目。往哪边倒、爆不爆、烧多久，只有萨满听得出来。所以西昭的军令常是这样一句话。好处永远截不到，坏处永远说不清。</p>
+      <p class="note"><span class="w">帝国</span>这一条不进公告。监察院的判断是「无实据，不录」。</p>
+      <p class="note"><span class="w">洛斯汰</span>潮没变。所以对他们来说，这条消息等于没来。</p>
+      <div class="sign">火不报数。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">汉瑟尔帝国 · 官刻局 · 三月十八日</div>
+      <h3>旧 档 调 阅</h3>
+      <p class="body q">「试验所旧档，着按规程调阅。调阅范围、份数、经手人，登记在册。除册外不许另录。」</p>
+      <p class="body sm">十年前那批「血统与魔力试验」的记录，就在这六个字里被搬出了柜子。搬了多少，册上写着，册不在外面。</p>
+      <p class="note"><span class="w">试验所</span>主管只问了一句——「按规程」是哪一年的规程。没人答她。</p>
+      <p class="note"><span class="w">监察院</span>查的不是版有多少，是版与册对不对得上。少一块，问的不是「版呢」，是「你想让人看不见什么」。</p>
+      <div class="sign">先定稿，后动刀；动刀之后不改稿。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">凯斯特 · 档案室 · 三月十六日</div>
+      <h3>第 12 号之后</h3>
+      <p class="body">边境冒名事件，已编号归档。观者署名，日期照记。此条存疑，待核。</p>
+      <p class="note"><span class="w">档案室</span>不进公开档案。公开档案只收已经不必再改的东西。</p>
+      <p class="note"><span class="w">西昭</span>火说这是「打」，不是「等」。这两句话在西昭差着一整季的粮。</p>
+      <div class="sign">编号落下就改不了，所以先写「存疑」。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">铁序城 · 监察院 · 三月十四日</div>
+      <h3>灰 喉 隘 拆 封 验 账</h3>
+      <p class="body q">「货能等，账不能等。」</p>
+      <p class="body sm">隘口牌上就这一句，从立国那年起没改过。这一日扣了三车，车上的货没人动，账页被带走了。</p>
+      <p class="note"><span class="w">商驿</span>同一条线上的一封信，晚到十三天。寄信的人不知道信是被截了还是丢了，所以只能重写、重寄、再等三十三天。</p>
+      <p class="note"><span class="w">共和国</span>事主收到一张「未妥投」的纸条。这就是体面——不能承认截了，但必须给个说法。</p>
+      <div class="sign">帝国的信息管制不靠禁，靠让你不确定。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">灰港同盟 · 账房 · 三月十二日</div>
+      <h3>一 笔 「西 昭 欠」</h3>
+      <p class="body q">「西昭欠。事由：冒名。担保人：待填。」</p>
+      <p class="body sm">灰港不写这件事「是什么」，只决定它「算不算」。现在它算了。算，就记一行。</p>
+      <p class="note"><span class="w">契约行</span>行首把两件事分得很清：认欠是认钱，认冒名是认人。混着认，等于替别人把名字签了。</p>
+      <p class="note"><span class="w">西昭</span>「扣信就是扣人。」按这条，冒名这件事得先找到那个冒名的活人。</p>
+      <div class="sign">一名行首不足以落笔，这一行落了两名。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">格洛克 · 印务房（第一读）· 三月十日</div>
+      <h3>东 道 商 队 遇 袭 · 第 一 读</h3>
+      <p class="body q">「关于东道商队遇袭一事，已列第一读。具体条款，另行议定。」</p>
+      <p class="body sm">共和国的公告三个特点：慢、长、留余地。慢是吵完，长是把所有例外都写进去，留余地是最后一句永远是一句「另行议定」。</p>
+      <p class="note"><span class="w">某城台阶</span>同一条公告到了第七座城，念它的是当地主祭。有人把「调整」念成了「加征」，念完没留证据。</p>
+      <p class="note"><span class="w">灰港</span>不等。价先动，价就是公告。</p>
+      <div class="sign">读它的人比他读的字更有权。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">汉瑟尔帝国 · 官刻局 · 三月八日</div>
+      <h3>冒 用 军 旗 者</h3>
+      <p class="body q">「有冒用军旗、劫夺行旅者，着各地缉拿。所失货物，依原主报数，另行核计。凡窝藏、代寄、代售者，同一律。」</p>
+      <p class="body sm">这一版共三百字，是帝国今年六十版公告里的一版。三百字要管五百二十万人一整年，所以它只能写「另行核计」。</p>
+      <p class="note"><span class="w">凯斯特</span>同一天，档案里多了一行「冒名事件·第 12 号」。没有解释，只有一个号。</p>
+      <p class="note"><span class="w">灰港</span>同一天，账上多了一笔「西昭欠」。也没有解释。</p>
+      <div class="sign">本条张贴十二处：三座城门、六处熔炉车间、官刻局、监察院、两处粮栈。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">灰港同盟 · 悬赏行 · 灯柱下 · 三月六日</div>
+      <h3>榜 上 多 了 三 张 脸</h3>
+      <p class="body q">「凡指认下列三人者，记一账。事由：冒用军旗，劫商队于东道。名字后填。」</p>
+      <p class="body sm">灰港的版只刻模板。名字是事后填的，谁填的、什么时候填的，账上不写。</p>
+      <p class="note"><span class="w">帝国</span>监察院对此「查无此事」。告诉你就等于告诉你有人在查你，所以不告诉。</p>
+      <p class="note"><span class="w">共和国</span>议会：「正在审议。」</p>
+      <div class="sign">四十七根灯柱下面全是人，没一个人知道刚才成交了什么。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">汉瑟尔帝国 · 军部 · 三月四日</div>
+      <h3>边 境 增 哨</h3>
+      <p class="body q">「边境诸隘增哨，例行。驿道照旧通行，商旅不得借故停留。」</p>
+      <p class="note"><span class="w">灰港</span>悬赏行收到三张新面孔的画像，来源未署。挂账人签了字，等于认了这三张脸值钱。</p>
+      <p class="note"><span class="w">西昭</span>大萨满说，火还没倒。</p>
+      <div class="sign">军令不列数。</div>
+    </section>
+
+    <section class="art">
+      <div class="a-meta">汉瑟尔帝国 · 官刻局 · 三月二日</div>
+      <h3>南 粮 北 运，依 序 开 行</h3>
+      <p class="body q">「本年南粮北运，依序开行。各关卡照旧验印，不得另设名目。」</p>
+      <p class="body sm">北境刚化冻，运粮车能动但还没到。缺口这时候最难看，也最适合拿来做交易。公告上不写缺口，只写「依序」。</p>
+      <p class="note"><span class="w">灰港</span>柳原一石麦，从 1 银 60 铜挂到 1 银 75 铜。盘口不用等公告——账界只承认它算不算，不解释它是什么。</p>
+      <p class="note"><span class="w">凯斯特</span>记一行「帝国粮政变动·第 47 号」，不进公开档案。</p>
+      <p class="note"><span class="w">洛斯汰</span>没反应。潮没变。</p>
+      <div class="sign">四页一份，印五百份，最快九天出门。</div>
+    </section>
+
+  </div>
+
+  <div class="pf">
+    <span>戈克公报 · 《戈克世界》世界观衍生栏目</span>
+    <span>小猫月月（nekoruyue）</span>
+    <span><a href="index.html">回戈克世界</a></span>
+  </div>
+
+</article>
+</div>
+
+</body>
+</html>
